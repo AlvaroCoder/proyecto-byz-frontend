@@ -1,0 +1,1 @@
+export {default as ButtonLink} from "@/components/Buttons/buttonLink";

@@ -10,15 +10,15 @@ export default function buttonDropdownNav({data}) {
   return (
     <DropdownMenu open={open} >
       <DropdownMenuTrigger  asChild>
-          <Link href={routeLink} onMouseEnter={()=>setOpen(true)} onMouseLeave={()=>setOpen(false)}  className={`p-4 w-fit  mx-1 rounded-lg hover:bg-gray-100 ${isSelected && 'bg-naranja hover:bg-naranja text-white'}`}>
+          <Link href={routeLink} onMouseEnter={()=>setOpen(true)} onMouseLeave={()=>setOpen(false)}  className={`p-4 w-fit  mx-1 rounded-lg hover:bg-gray-100 ${isSelected && 'bg-naranja hover:bg-naranja  text-white'}`}>
             <p>{routeName}</p>
           </Link>
       </DropdownMenuTrigger>
-      <DropdownMenuContent   onMouseEnter={()=>setOpen(true)} onMouseLeave={()=>setOpen(false)} >
-        <section className='flex flex-col w-full'>
+      <DropdownMenuContent className="p-0"   onMouseEnter={()=>setOpen(true)} onMouseLeave={()=>setOpen(false)} >
+        <section className='flex flex-col w-full py-4 '>
           {
             subLinks?.map(((item, key)=>(
-              <Link href={item?.subLinkRoute} key={key} className='p-2 hover:bg-gray-100 w-full'>
+              <Link href={item?.subLinkRoute} key={key} className='p-2 hover:border-l-naranja hover:border-l-4 hover:bg-gray-100 w-full'>
               <p >{item?.subLinkName}</p>
               </Link>
             )))

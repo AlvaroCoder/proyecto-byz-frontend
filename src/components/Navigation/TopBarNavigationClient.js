@@ -1,8 +1,13 @@
+'use client'
 import Image from 'next/image';
 import React from 'react'
 import { ButtonDropdownNavigation, ButtonNavigation } from './elements';
+import { usePathname } from 'next/navigation';
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 export default function TopBarNavigationClient() {
+    const pathname = usePathname();
     const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738629648/p13jmnqe8xytp8fggkxa.png";
 
     const routes=[
@@ -10,13 +15,26 @@ export default function TopBarNavigationClient() {
         {routeName : "Nosotros", routeLink : "/nosotros", subLinks : [], isSelected : false},
         {routeName : "Servicios", routeLink : "/servicios", subLinks : [], isSelected : false},
         {routeName : "Proyectos", routeLink : "/proyectos", subLinks : [
+            {subLinkName : "PreVenta", subLinkRoute : "/proyectos"},
             {subLinkName : "Venta", subLinkRoute : "/proyectos"}
         ], isSelected : false},
-        {routeName : "Corretaje", routeLink : "/corretaje", subLinks : [
+        {routeName : "Inmmuebles", routeLink : "/corretaje", subLinks : [
             {subLinkName : "Venta", subLinkRoute : "/corretaje"},
             {subLinkName : "Alquiler", subLinkRoute : "/corretaje"}
         ], isSelected : false},
-    ]
+    ].map(item=>{
+        if (item?.routeLink == pathname) {
+            return {
+                ...item,
+                isSelected : true
+            }
+        }
+        return {
+            ...item,
+            isSelected : false
+        }
+    });
+
   return (
     <div className='w-full h-20 shadow-sm px-4 flex flex-row items-center justify-between'>
         <section>
@@ -37,6 +55,16 @@ export default function TopBarNavigationClient() {
                 })
             }
         </ul>
+        <section>
+            <Button
+                variant="ghost"
+                className="p-4 text-naranja bg-white border-naranja border-2 hover:text-naranja rounded-lg"
+            >
+                <Link href={"/contacto"}>
+                    <p>Contactanos</p>
+                </Link>
+            </Button>
+        </section>
     </div>
   )
 }
