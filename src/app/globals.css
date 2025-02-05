@@ -70,3 +70,15 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.custom-pagination .swiper-pagination-bullet {
+  background-color: #686868 !important; /* Color naranja */
+  width: 10px;
+  height: 10px;
+  opacity: 1;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  background-color: #FB923C !important; /* Color naranja para la bolita activa */
+  transform: scale(1.2);
+}
