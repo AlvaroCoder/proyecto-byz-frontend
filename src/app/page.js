@@ -1,11 +1,15 @@
 'use client'
-import { ButtonLink, ButtonNaranja } from "@/components/Buttons";
+import { ButtonNaranja } from "@/components/Buttons";
 import ButtonNaranjaTwo from "@/components/Buttons/ButtonNaranjaTwo";
-import { ImageGrid, ProjectCard, ServicesCardDesplegable, ServiceSlider, ServiceSliderResume } from "@/components/Cards";
+import { ProjectCard, ServicesCardDesplegable, ServiceSliderResume } from "@/components/Cards";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
+
+import MapIcon from '@mui/icons-material/Map';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { FormContactPage } from "@/components/Forms";
 
 export default function Home() {
   const IMAGE="https://res.cloudinary.com/dabyqnijl/image/upload/v1738772836/b5faz55hpmkhjxtnq1dh.png";
@@ -164,7 +168,49 @@ export default function Home() {
           </section>
         </section>
       </section>
-      
+      <section className="min-h-screen flex flex-col justify-center items-center py-12">
+        <div className="w-3/4">
+          <h1 className="font-bold text-3xl">Ubícanos</h1>
+            <div className="w-full bg-slate-200 h-80">
+              <iframe 
+              className="w-full h-80 mt-4" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0" 
+              src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Las Esmeraldas Piura&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+              </iframe>
+            </div>
+        </div>
+        <section className="flex flex-row justify-evenly w-full  py-14 mt-10">
+            <div className="text-gris">
+                <div className="flex flex-row items-center  text-2xl">
+                  <MapIcon/>
+                  <h1 className="font-bold ">Atención en Oficina</h1>
+                </div>
+                <p>Celular : <span> +51 943 420 500</span></p>
+                <p>Horario de atención : 9:00am - 6:00pm</p>
+                <p>Email : <span> <a href="mailto:contactenos@grupobyz.com">contactenos@grupobyz.com</a></span></p>
+            </div>
+            <div className="text-gris">
+                <div className="flex flex-row items-center  text-2xl">
+                  <LocationOnIcon/>
+                  <h1 className="font-bold ">Visitanos</h1>
+                </div>
+                <p className="w-80">
+                Sede: Las Esmeraldas B8 II etapa Castilla – Piura. 
+                </p>
+                <p className="w-80">
+                Ref. Frente a plataforma deportiva Las Esmeraldas.
+                </p>
+            </div>
+        </section>
+        <section className="border-t-[1px] border-t-gris w-full min-h-screen flex flex-col justify-center items-center" >
+            <div className="w-full h-40 flex flex-col justify-center items-center">
+              <h1 className="font-bold text-3xl">Contactanos</h1>
+              <h2>Empecemos tu diseño juntos, contactanos para poder ponernos en contacto contigo</h2>
+            </div>
+            <FormContactPage
+
+            />
+        </section>
+      </section>
     </section>
   );
 }

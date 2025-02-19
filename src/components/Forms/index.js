@@ -1,0 +1,1 @@
+export {default as FormContactPage} from "@/components/Forms/FormContactPage";
