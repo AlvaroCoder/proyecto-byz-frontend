@@ -207,7 +207,7 @@ export default function Home() {
               <h2>Empecemos tu diseño juntos, contactanos para poder ponernos en contacto contigo</h2>
             </div>
             <FormContactPage
-
+              
             />
         </section>
       </section>

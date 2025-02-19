@@ -4,6 +4,9 @@ import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
 
 export default function FormContactPage() {
+    const handleClick=()=>{
+
+    }
   return (
     <div className="bg-gris rounded-none xl:rounded-lg p-8 w-full xl:w-3/4 min-h-96">
         <div className='w-full text-white   '>
@@ -33,6 +36,7 @@ export default function FormContactPage() {
             />
         </div>
         <Button
+            onClick={handleClick}
             variant="ghost"
             className="flex justify-center items-center rounded-none border border-naranja w-full mt-4 bg-naranja text-white hover:bg-orange-300 hover:text-gris py-5"
         >
