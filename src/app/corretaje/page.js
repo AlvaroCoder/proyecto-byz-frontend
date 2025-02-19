@@ -2,6 +2,10 @@ import React from 'react'
 
 export default function Page() {
   return (
-    <div>Pagina de corretaje</div>
+    <div className='w-full min-h-screen'>
+      <section className='w-full bg-gris h-96'>
+        
+      </section>
+    </div>
   )
 }
