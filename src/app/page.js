@@ -17,6 +17,7 @@ export default function Home() {
   const IMAGE_INGENIERIA = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740158491/ImagesByZ/oh4chfekpcpjzqchpjsu.png";
   const IMAGE_INTERIORES = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740164222/ImagesByZ/kl0rxl1mrotap4q2kzfi.png";
   const IMAGE_ACONDICIONAMIENTO = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740164246/ImagesByZ/g1ffdzrakke6o7hdndat.png";
+  const IMAGE_LOGOCOSAI = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740167017/ImagesByZ/epwb6g3qibmzpckughwy.png";
 
   const IMAGE="https://res.cloudinary.com/dabyqnijl/image/upload/v1738772836/b5faz55hpmkhjxtnq1dh.png";
   const listService = [
@@ -30,7 +31,7 @@ export default function Home() {
     {title : "Ingeniería y Construcción", img: IMAGE_INGENIERIA},
     {title : "Diseño de Interiores", img : IMAGE_INTERIORES},
     {title : "Acondicionamiento y Remodelación", img : IMAGE_ACONDICIONAMIENTO},
-    {title : "Branding y Página Web", img : IMAGE_SFL}
+    {title : "Branding y Página Web", img : IMAGE_LOGOCOSAI}
   ]
   const projectSale = [
     {title : "", price : "3,516,000.00", location : "C. Qerecotillo concepcion 331", department : "Santiago de Surco Lima", type :"Proyecto en venta"},

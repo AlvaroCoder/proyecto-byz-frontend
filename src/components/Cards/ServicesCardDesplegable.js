@@ -5,7 +5,7 @@ import Image from 'next/image';
 export default function ServicesCardDesplegable({
     data
 }) {
-  const {title, img} = data;
+  const {title, img, urlName} = data;
   return (
     <motion.div
       className='w-full h-80 flex flex-row items-center bg-gray-300 justify-between mt-4 object-cover'
