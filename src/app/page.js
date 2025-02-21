@@ -12,6 +12,12 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { FormContactPage } from "@/components/Forms";
 
 export default function Home() {
+  const IMAGE_SFL = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740151967/ImagesByZ/djkx3kyeqegsvtollfr1.png";
+  const IMAGE_DISEÑO = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740158270/ImagesByZ/cekxf7sxy3o4twjuafic.png";
+  const IMAGE_INGENIERIA = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740158491/ImagesByZ/oh4chfekpcpjzqchpjsu.png";
+  const IMAGE_INTERIORES = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740164222/ImagesByZ/kl0rxl1mrotap4q2kzfi.png";
+  const IMAGE_ACONDICIONAMIENTO = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740164246/ImagesByZ/g1ffdzrakke6o7hdndat.png";
+
   const IMAGE="https://res.cloudinary.com/dabyqnijl/image/upload/v1738772836/b5faz55hpmkhjxtnq1dh.png";
   const listService = [
     {title : "Compra un inmueble", linkName : "/",  image : IMAGE},
@@ -19,12 +25,12 @@ export default function Home() {
     {title : "Saneamiento Fiscal", linkName : "/",  image : IMAGE},
   ]
   const services = [
-    {title : "Saneamiento Fisico Legal"},
-    {title : "Diseño arquitectonico"},
-    {title : "Ingeniería y Construcción"},
-    {title : "Diseño de Interiores"},
-    {title : "Acondicionamiento y Remodelación"},
-    {title : "Branding y Página Web"}
+    {title : "Saneamiento Fisico Legal", img : IMAGE_SFL},
+    {title : "Diseño arquitectonico", img : IMAGE_DISEÑO},
+    {title : "Ingeniería y Construcción", img: IMAGE_INGENIERIA},
+    {title : "Diseño de Interiores", img : IMAGE_INTERIORES},
+    {title : "Acondicionamiento y Remodelación", img : IMAGE_ACONDICIONAMIENTO},
+    {title : "Branding y Página Web", img : IMAGE_SFL}
   ]
   const projectSale = [
     {title : "", price : "3,516,000.00", location : "C. Qerecotillo concepcion 331", department : "Santiago de Surco Lima", type :"Proyecto en venta"},
@@ -184,7 +190,7 @@ export default function Home() {
                   <MapIcon/>
                   <h1 className="font-bold ">Atención en Oficina</h1>
                 </div>
-                <p>Celular : <span> +51 943 420 500</span></p>
+                <p>Celular : <span> +51  941 071 285</span></p>
                 <p>Horario de atención : 9:00am - 6:00pm</p>
                 <p>Email : <span> <a href="mailto:contactenos@grupobyz.com">contactenos@grupobyz.com</a></span></p>
             </div>
@@ -194,10 +200,10 @@ export default function Home() {
                   <h1 className="font-bold ">Visitanos</h1>
                 </div>
                 <p className="w-80">
-                Sede: Las Esmeraldas B8 II etapa Castilla – Piura. 
+                Urb. Santa María del Pinar  
                 </p>
                 <p className="w-80">
-                Ref. Frente a plataforma deportiva Las Esmeraldas.
+                Av. Casuarinas Mz. B Lt. 54
                 </p>
             </div>
         </section>
