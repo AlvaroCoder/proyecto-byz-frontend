@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react'
 
 export default function Footer() {
-  const IMAGEN_LOGO="https://res.cloudinary.com/dabyqnijl/image/upload/v1738689199/myayetxnfikdfmvwhxev.png";
+  const IMAGEN_LOGO="https://res.cloudinary.com/dabyqnijl/image/upload/v1738629648/p13jmnqe8xytp8fggkxa.png";
   const IMAGEN_LIBRO_RECLAMACIONES="https://res.cloudinary.com/dabyqnijl/image/upload/v1738690309/pumozpk2jg2btsg3unr3.png";
   return (
     <footer className='w-full bg-gray-100 h-fit flex flex-col py-8'>

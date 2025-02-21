@@ -8,7 +8,8 @@ import Link from 'next/link';
 
 export default function TopBarNavigationClient() {
     const pathname = usePathname();
-    const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738629648/p13jmnqe8xytp8fggkxa.png";
+    const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738689199/myayetxnfikdfmvwhxev.png";
+    //   const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738689199/myayetxnfikdfmvwhxev.png";
 
     const routes=[
         {routeName : "Inicio", routeLink : "/", subLinks : [], isSelected  : true},

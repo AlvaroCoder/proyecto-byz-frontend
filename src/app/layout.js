@@ -24,9 +24,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TopBarNavigationClient/>
-        {children}
-        <Footer/>
+        <main>
+          <TopBarNavigationClient/>
+          {children}
+          <Footer/>
+        </main>
       </body>
     </html>
   );

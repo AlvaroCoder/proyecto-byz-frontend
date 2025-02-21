@@ -2,8 +2,10 @@ import React from 'react'
 
 export default function AdminLayout({children}) {
   return (
-    <body>
-      <main>{children}</main>
-    </body>
+    <html lang="es">
+      <body>
+        <main>{children}</main>
+      </body>
+    </html>
   )
 }
