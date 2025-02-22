@@ -19,8 +19,6 @@ export default function Page() {
     return () => clearInterval(interval);
   },[]);
   const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738629648/p13jmnqe8xytp8fggkxa.png";
-
-  const IMAGE_DISENO = "https://res.cloudinary.com/dabyqnijl/image/upload/v1740173060/ImagesByZ/zrkyw9zor5pctbyfhywc.png";
   return (
     <section className='w-full min-h-screen flex flex-row'>
         <section className='flex-1 relative overflow-hidden'>

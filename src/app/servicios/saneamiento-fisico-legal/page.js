@@ -1,14 +1,15 @@
-import { IMAGE_DISEÑO } from '@/assets/ImagesServices'
+import { IMAGE_SFL } from '@/assets/ImagesServices'
 import { ImageCardBanner } from '@/components/Cards'
 import React from 'react'
 
 export default function Page() {
+
   return (
     <section className='w-full min-h-screen'>
       <ImageCardBanner
-        src={IMAGE_DISEÑO}
-        alt='Imagen de Diseño arquitectonico'
-        title='Diseño arquitectonico'
+        src={IMAGE_SFL}
+        alt='Imagen de Saneamiento Fisico Legal'
+        title='Saneamiento Fisico Legal'
       />
     </section>
   )

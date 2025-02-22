@@ -2,6 +2,7 @@
 import React from 'react'
 import {motion} from "motion/react"
 import Image from 'next/image';
+import Link from 'next/link';
 export default function ServicesCardDesplegable({
     data
 }) {
@@ -22,7 +23,11 @@ export default function ServicesCardDesplegable({
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 ">
           <h1 className="text-white text-2xl font-bold">{title}</h1>
+          <Link
+            href={urlName}
+          >
           <p className='underline text-white cursor-pointer'>Mas información</p>
+          </Link>
         </div>
       </div>
     </motion.div>
