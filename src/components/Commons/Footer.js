@@ -1,11 +1,16 @@
+'use client'
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import React from 'react'
 
 export default function Footer() {
+  const pathname = usePathname();
+  const existeRutaAdmin = pathname.split("/").includes("admin");
+
   const IMAGEN_LOGO="https://res.cloudinary.com/dabyqnijl/image/upload/v1738629648/p13jmnqe8xytp8fggkxa.png";
   const IMAGEN_LIBRO_RECLAMACIONES="https://res.cloudinary.com/dabyqnijl/image/upload/v1738690309/pumozpk2jg2btsg3unr3.png";
   return (
-    <footer className='w-full bg-gray-100 h-fit flex flex-col py-8'>
+    <footer className={`w-full bg-gray-100 h-fit flex flex-col py-8 ${existeRutaAdmin ? 'hidden' : 'block'}`}>
       <section className='w-full py-10 flex justify-between items-center px-10'>
       <div className="flex flex-col items-center space-y-4">
         <Image

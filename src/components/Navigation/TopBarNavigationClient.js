@@ -8,8 +8,11 @@ import Link from 'next/link';
 
 export default function TopBarNavigationClient() {
     const pathname = usePathname();
+    const encuentraPaginaAdmin = pathname.split("/").includes("admin");
+    
+    
     const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738689199/myayetxnfikdfmvwhxev.png";
-    //   const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738689199/myayetxnfikdfmvwhxev.png";
+
 
     const routes=[
         {routeName : "Inicio", routeLink : "/", subLinks : [], isSelected  : true},
@@ -37,7 +40,7 @@ export default function TopBarNavigationClient() {
     });
 
   return (
-    <div className='w-full h-20 shadow-sm px-4 flex flex-row items-center justify-between'>
+    <div className={`w-full h-20 shadow-sm px-4 flex flex-row items-center justify-between ${encuentraPaginaAdmin ? 'hidden' : 'block'}`}>
         <section>
             <Image
                 src={URL_LOGO_BYZ}

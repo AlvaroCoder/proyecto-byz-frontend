@@ -36,6 +36,7 @@ export default function Page() {
                   alt='Imagen de Fondo'
                   layout='fill'
                   objectFit="cover"
+                  
                 />
             </motion.div>
           </AnimatePresence>

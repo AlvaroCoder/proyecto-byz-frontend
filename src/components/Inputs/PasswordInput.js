@@ -4,16 +4,14 @@ import LockIcon from '@mui/icons-material/Lock';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
-import { Input } from '../ui/input';
-
-export default function PasswordInput({value,onChange}) {
+export default function PasswordInput({value,onChange, error=null}) {
     const [visibilityPassword, setVisibilityPassword] = useState(false);
 
     const handleChangeVisibility=()=>{
         setVisibilityPassword(!visibilityPassword);
     }
   return (
-    <div className='flex flex-row items-center justify-center bg-white  px-4 py-2 border-b border-b-gris w-96' >
+    <div className={`flex flex-row items-center justify-center bg-white  px-4 py-2 border-b border-b-gris w-96 ${error?.idError === 1 && 'bg-red-100'}`} >
         <LockIcon
             className='text-gris'
         />
