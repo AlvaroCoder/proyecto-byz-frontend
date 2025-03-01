@@ -47,15 +47,10 @@ export async function login(dataUser) {
             message : rpta?.detail
         }
     }
-    const responseJson = await response.json();
-    console.log(responseJson);
-    
+    const responseJson = await response.json();    
     const expires = new Date(Date.now() + timeExpiration); 
-    const user = {username : formData.get("username"), access_token : responseJson?.access_token, refresh_token : responseJson?.refresh_token, token_type : responseJson?.token_type};
-    console.log(user);
-    
+    const user = {username : formData.get("username"), access_token : responseJson?.access_token, refresh_token : responseJson?.refresh_token, token_type : responseJson?.token_type};    
     const session = await encrypt({user, expires});
-    console.log(session);
     
     (await cookies()).set("session",session, {expires, httpOnly : true});
     

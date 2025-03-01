@@ -34,7 +34,6 @@ export default function FormLogin() {
         }
         setLoading(true);
         const response = await login(dataForm);
-        console.log(response.message);
         
         if (response.error) {
             

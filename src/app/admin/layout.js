@@ -1,9 +1,10 @@
+import { SidebarNavigationDashboard, TopBarNavigationDashboard } from '@/components/Navigation'
 import React from 'react'
 
 export default function AdminLayout({children}) {
   return (
-<main>
-        {children}
+    <main>
+         {children}
       </main>
   )
 }
