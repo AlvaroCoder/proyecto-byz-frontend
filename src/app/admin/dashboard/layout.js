@@ -8,7 +8,7 @@ export default function DashboardLayout({children}) {
     >
         <SidebarNavigationDashboard/>
         <section
-          className='w-full h-screen flex flex-col bg-gray-100 overflow-y-hidden'
+          className='w-full min-h-screen flex flex-col bg-gray-100 overflow-y-hidden'
         >
           <TopBarNavigationDashboard/>
           {children}

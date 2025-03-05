@@ -4,3 +4,4 @@ export {default as ServiceSliderResume} from "@/components/Cards/ServiceSliderRe
 export {default as ServicesCardDesplegable} from "@/components/Cards/ServicesCardDesplegable";
 export {default as ProjectCard} from "@/components/Cards/ProjectCard";
 export {default as ImageCardBanner} from "@/components/Cards/ImageCardBanner";
+export {default as MapPickerCard} from "@/components/Cards/MapPickerCard";

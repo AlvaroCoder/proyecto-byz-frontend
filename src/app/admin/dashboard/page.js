@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Page() {
   return (
-    <div>Pagina de inicoi</div>
+    <div>Pagina de Inicio</div>
   )
 }
