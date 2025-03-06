@@ -3,19 +3,18 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import React, { useRef, useState } from 'react'
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-
 import SearchIcon from '@mui/icons-material/Search';
-//AIzaSyCxowAXa5xjT23Nm7nk1NjNs2hQ-zoSEqg
 
-const GOOGLE_MAPS_API = "AIzaSyCxowAXa5xjT23Nm7nk1NjNs2hQ-zoSEqg";
+const GOOGLE_MAPS_API = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 export default function MapPickerCard({
-    handleChange
+    handleChangeLocation
 }) {
     const [location, setLocation] = useState({
         lat: -12.0464, 
         lng: -77.0428,
     });
+    
     const inputRef = useRef(null);
     const handleSearchLocation = () => {
         const address = inputRef.current.value;
@@ -29,11 +28,19 @@ export default function MapPickerCard({
               lat: newLocation.lat(),
               lng: newLocation.lng(),
             });
+            handleChangeLocation({
+              zone : inputRef?.current?.value,
+              coordinates : {
+                lat : newLocation.lat(),
+                lng : newLocation.lng()
+              }
+              
+            });
           } else {
             alert("Ubicación no encontrada");
           }
         });
-      };
+  };
   return (
     <div className="w-full  mx-auto mt-2">
     <h1 className=''>Ubicación <span className='text-red-500'>*</span></h1>

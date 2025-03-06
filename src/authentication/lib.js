@@ -62,7 +62,7 @@ export async function login(dataUser) {
 
 export async function logout() {
     cookies().set("session", "", {expires:new Date(0)})
-    redirect('/login');
+    redirect('/admin/login');
 }
 
 export async function getSession() {

@@ -1,0 +1,1 @@
+export {default as LoadingWindowProject} from "@/components/Loading/LoadingWindowProject";

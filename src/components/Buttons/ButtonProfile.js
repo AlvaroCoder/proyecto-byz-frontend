@@ -5,8 +5,13 @@ import { Button } from '../ui/button'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { logout } from '@/authentication/lib';
 
 export default function ButtonProfile({nombrePerfil=""}) {
+    const handleSignOutSession=async(evt)=>{
+        evt.preventDefault();
+        await logout();
+    }
   return (
     <DropdownMenu>
         <DropdownMenuTrigger
@@ -40,6 +45,7 @@ export default function ButtonProfile({nombrePerfil=""}) {
             <DropdownMenuItem>
                 <Button
                     variant="ghost"
+                    onClick={handleSignOutSession}
                 >
                     <p>
                         <PowerSettingsNewIcon/>
