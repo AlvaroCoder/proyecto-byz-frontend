@@ -9,7 +9,14 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { LoadingWindowProject } from '@/components/Loading';
+import { useFetch } from '@/app/hooks/useHooks';
+import { ButtonDropdownStatus } from '@/components/Buttons';
+import { Loader2 } from 'lucide-react';
+import { CREATE_PROJECT, UPLOAD_IMAGE } from '@/lib/apiConnections';
+import { useRouter } from 'next/navigation';
 export default function Page() {
+  const router = useRouter();
+  const URL_STATUS=process.env.NEXT_PUBLIC_GET_STATUS_PROJECTS;
   const [loadingDataSave, setLoadingDataSave] = useState(false);
 
   const [dataNewProject, setDataNewProject] = useState({
@@ -19,9 +26,15 @@ export default function Page() {
       detailedLocation : null,
       surroundings : []
     },
-    geographicalDetails : null,
+    geographicalDetails : {
+      totalArea : {
+        frontage : 0,
+        depth : 0,
+        unit : "m2"
+      }
+    },
     images : [],
-    status : "available for sale",
+    status : "Venta disponible",
     price : {
       soles : "",
       dolar : ""
@@ -30,16 +43,14 @@ export default function Page() {
     creationTime : (new Date()).toISOString()
   });
   const [errorInput, setErrorInput] = useState(null);
-
+  const {data : dataStatusProject, error, loading : loadingDataStatusProject} = useFetch(URL_STATUS);
+  
   const [dataGeographicalDetail, setDataGeographicalDetail] = useState({
     frontage : "",
     depth : '',
     unit : 'm2'
   });
-  const [dataPriceInformation, setDataPriceInformation] = useState({
-    soles : "",
-    dolar : ""
-  });
+
   const inputSurroundingsRef = useRef(null);
   const totalArea = Number(dataGeographicalDetail?.depth)*Number(dataGeographicalDetail.frontage);
   const handleChange=(evt)=>{
@@ -54,7 +65,16 @@ export default function Page() {
     setDataGeographicalDetail({
       ...dataGeographicalDetail,
       [target.name] : target.value
-    })
+    });
+    setDataNewProject(prev=>({
+      ...prev,
+      geographicalDetails : {
+        totalArea: {
+          ...prev.geographicalDetails.totalArea,
+          [target.name] : Number(target.value)
+        }
+      }
+    }))
   };
   const handleChangePrice=(evt)=>{
     const target=evt.target;
@@ -83,12 +103,57 @@ export default function Page() {
         surroundings : [...prev.location?.surroundings, inputSurroundingsRef?.current?.value]
       }
     }));
-  
   }
-  const handleClickSaveNewProject=(evt)=>{
-    console.log(dataNewProject);
+  const handleChangeStatusProject=(newDataStatus="")=>{
+    setDataNewProject({
+      ...dataNewProject,
+      status : newDataStatus
+    })
+  }
+  const handleClickSaveNewProject=async(evt)=>{
+    if (dataNewProject.images.length <= 0 ) {
+      alert('Sube una imagen');
+      return;
+    }
+    setLoadingDataSave(true);
+    // Subir imagenes
+    const urlImagesProject = await Promise.all(
+      dataNewProject.images.map(async(item)=>{
+        try {
+          const formData = new FormData();
+          formData.append("image", item?.file);
+  
+          const url_images = await UPLOAD_IMAGE(formData);
+          if (!url_images.ok) {
+            console.log(await url_images.json());
+            alert("Surgio un error");
+            return;
+          };
+
+          return ( await url_images.json())?.url;
+        } catch (error) {
+          console.log(error); 
+        }
+      })
+    );
+
+    const newDataJsonProject = {
+      ...dataNewProject,
+      images : urlImagesProject
+    };    
     
+    const responseCreateProject = await CREATE_PROJECT(newDataJsonProject);
+    if (!responseCreateProject.ok) {
+      console.log(await responseCreateProject.json());
+
+      alert('Surgio un error');
+      setLoadingDataSave(false);
+      return;
+    }
+    console.log(await responseCreateProject.json());
     
+    router.push("/admin/dashboard/projects")
+    setLoadingDataSave(false);
     
   }
   return (
@@ -101,13 +166,36 @@ export default function Page() {
           <h1 className='font-bold text-2xl'>Nuevo proyecto</h1>
           <section className='w-full bg-white min-h-24 mt-4 rounded-lg p-4'>
             <h1 className='font-bold text-xl mb-4'>Información del Proyecto</h1>
-            <h1 className=''>Nombre del proyecto <span className='text-red-500'>*</span></h1>
-            <Input
-              name="name"
-              value={dataNewProject?.name}
-              onChange={handleChange}
-              required
-            />
+            <div className='flex flex-row items-center'>
+              <div className='flex-1'>
+                <h1 className=''>Nombre del proyecto <span className='text-red-500'>*</span></h1>
+                <Input
+                  name="name"
+                  value={dataNewProject?.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className='w-40 ml-2'>
+                <h1>Estado</h1>
+                <div >
+                {
+                  loadingDataStatusProject ?
+                  <Button
+                    variant="ghost"
+                    className="w-full shadow-sm border border-slate-100"
+                  >
+                    <Loader2 className='animate-spin'/>
+                  </Button>:
+                  <ButtonDropdownStatus
+                    initialData={dataNewProject?.status}
+                    data={dataStatusProject?.projects}
+                    handleChangeStatus={handleChangeStatusProject}
+                  />
+                }
+                </div>
+              </div>
+            </div>
 
             <h1 className='mt-4 '>Descripcion del Proyecto <span className='text-red-500'>*</span></h1>
             <Textarea
@@ -216,9 +304,10 @@ export default function Page() {
             <Button
               onClick={handleClickSaveNewProject}
               variant="ghost"
-              className="bg-orange-400 hover:bg-orange-300 text-white hover:text-gris w-full"
+              
+              className="bg-orange-400 hover:bg-orange-300 py-4 text-white hover:text-gris w-full"
             >
-              <p>Guardar Proyecto</p>
+             {loadingDataSave ? <Loader2 className='animate-spin'/> :  <p>Guardar Proyecto</p>}
             </Button>
           </section>
           
@@ -249,8 +338,10 @@ export default function Page() {
               }
             </div>
             <div className='p-4'>
-              <h1 className='font-bold text-naranja text-2xl'>$ {dataNewProject?.price.dolar|| "0.0"}</h1>
+              <h1 className='font-bold text-naranja text-4xl'>$ {dataNewProject?.price.dolar|| "0.0"}</h1>
               <h1 className='font-bold text-lg'>{dataNewProject?.name || "Titulo del proyecto"}</h1>
+              <p className='p-1 rounded-lg bg-naranja text-white font-bold w-fit my-1 text-sm'>{dataNewProject?.status}</p>
+
               <p className='text-sm'>{dataNewProject?.description || "Esta descripción indica aspectos generales del proyecto, de acuerdo al precio, ubicación y área. Es importante que sea precisa."}</p>
               <p className='flex flex-row items-center mt-4 text-gray-500 text-sm'><LocationOnIcon/> <span className=' ml-2'>{dataNewProject?.location?.detailedLocation?.zone || "Ubicacion del proyecto"}</span></p>
               <section className='border-t-[1px] border-t-gray-200 my-4 '></section>

@@ -15,13 +15,13 @@ export default function CarrouselImagesCard({ images }) {
     };
     
     return (
-        <div className="relative w-full max-w-lg mx-auto overflow-hidden rounded-lg">
+        <div className="relative w-full  mx-auto overflow-hidden rounded-lg">
         {/* Contenedor de imágenes */}
         <div className="relative w-full h-48">
           <AnimatePresence>
             <motion.img
-              key={images[currentIndex]?.preview}
-              src={images[currentIndex]?.preview}
+              key={typeof(images[currentIndex]) === "string" ? images[currentIndex] : images[currentIndex]?.preview}
+              src={typeof(images[currentIndex]) === "string" ? images[currentIndex] : images[currentIndex]?.preview}
               alt={`Slide ${currentIndex}`}
               className="absolute w-full h-full object-cover rounded-lg"
               initial={{ opacity: 0, x: 50 }}
