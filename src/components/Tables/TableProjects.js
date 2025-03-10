@@ -25,7 +25,7 @@ export default function TableProjects({
         if (dataTypeProject.filter(i=>i.isSelected)[0]?.value.toUpperCase() === "TODOS") {
             return dataPojects
         }        
-        return dataProjectsState.filter(item=>dataTypeProject.filter(i=>i.isSelected)[0]?.value.toUpperCase().includes(item?.status.toUpperCase()))
+        return dataProjectsState.filter(item=>dataTypeProject.filter(i=>i.isSelected)[0]?.value.toUpperCase().trim() === item?.status.toUpperCase().trim())
     },[dataProjectsState, dataTypeProject]);
 
     const handleChangeTypeProject=(titleProject="")=>{

@@ -6,6 +6,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import RoofingIcon from '@mui/icons-material/Roofing';
 import PersonIcon from '@mui/icons-material/Person';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import Link from 'next/link';
 
 export default function SidebarNavigationDashboard() {
@@ -25,17 +27,18 @@ export default function SidebarNavigationDashboard() {
         selected : false
     },
     {
+      routeName : "Propiedades",
+      routePath : "/admin/dashboard/propiedades",
+      routeIcon : HolidayVillageIcon,
+      selected : false
+    },
+    {
         routeName : "Servicios",
         routePath : "/admin/dashboard/services",
         routeIcon : RoofingIcon,
         selected : false
     },
-    {
-      routeName : "Miembros",
-      routePath : "/admin/dashboard/users",
-      routeIcon : PersonIcon,
-      selected : false
-    },
+
 ];  
 
 

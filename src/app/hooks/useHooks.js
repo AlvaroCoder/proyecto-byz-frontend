@@ -40,7 +40,9 @@ export function useFetch(URL="") {
                     headers : {
                         'Content-Type' : 'application/json',
                         'Authorization' : `Bearer ${session?.user?.access_token}`,
-                    }
+                    },
+                    method : 'GET',
+                    mode : 'cors'
                 }) :  await fetch(URL);
 
                 if (!response.ok) {
@@ -62,4 +64,21 @@ export function useFetch(URL="") {
         fetchData();
     },[]);
     return {loading, error, data};
+}
+export function useFetchApi(URL="") {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [data, setData] = useState(null);
+    useEffect(()=>{
+        async function fetchData() {
+            try {
+                const session = await getSession();
+                const response = await fetch(URL,{
+                    method : 'GET',
+                })
+            } catch (err) {
+                
+            }
+        }
+    },[]);
 }

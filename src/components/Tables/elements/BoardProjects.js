@@ -4,12 +4,17 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Image from 'next/image';
 
 export default function BoardProjects({data=[]}) {
-  
+  const handleClickEdit=()=>{
+
+  }
   return (
     <div className='w-full grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 py-4'>
       {
         data?.map((item, idx)=>
-        <div key={idx} className='w-full rounded-lg bg-white p-2'>
+        <div 
+          key={idx} 
+          onClick={handleClickEdit}
+          className='w-full rounded-lg bg-white p-2'>
           <div className=' relative h-48 w-full '>
             {
               item?.images?.length > 1 ?

@@ -23,21 +23,26 @@ export default function ButtonDialogStatus({
         </DropdownMenuTrigger>
         <DropdownMenuContent>
            {
-            data?.map((item, idx)=>
-            <DropdownMenuCheckboxItem 
-                key={idx}
-                className="capitalize"
-                onCheckedChange={()=>{
-                    const jsonSelected = data?.filter(elem=>elem.value.toUpperCase() === item.value.toUpperCase())[0]
-                    console.log(jsonSelected);
+            data?.map((item, idx)=>{
+                if (idx <= 1) {
+                    return <DropdownMenuCheckboxItem 
+                    key={idx}
+                    className="capitalize"
+                    onCheckedChange={()=>{
+                        const jsonSelected = data?.filter(elem=>elem.value.toUpperCase() === item.value.toUpperCase())[0]
+                        console.log(jsonSelected);
+                        
+                        handleChangeStatus(jsonSelected?.value);
                     
-                    handleChangeStatus(jsonSelected?.value);
-                
-                }}
-                checked={item.value.toUpperCase() === initialData.toUpperCase()}
-                >
-                    {item?.value}
-            </DropdownMenuCheckboxItem>)
+                    }}
+                    checked={item.value.toUpperCase() === initialData.toUpperCase()}
+                    >
+                        {item?.value}
+                </DropdownMenuCheckboxItem>
+                }
+                return null;
+            })
+            
            }
         </DropdownMenuContent>
     </DropdownMenu>
