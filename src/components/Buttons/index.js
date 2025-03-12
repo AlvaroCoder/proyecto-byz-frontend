@@ -4,3 +4,4 @@ export {default as ButtonProfile} from "@/components/Buttons/ButtonProfile";
 export {default as ButtonAddProject} from "@/components/Buttons/ButtonAddProject";
 export {default as ButtonDropdownStatus} from "@/components/Buttons/ButtonDropdownStatus"
 export {default as ButtonAdd} from "@/components/Buttons/ButtonAdd";
+export {default as ButtonCounter} from "@/components/Buttons/ButtonCounter";

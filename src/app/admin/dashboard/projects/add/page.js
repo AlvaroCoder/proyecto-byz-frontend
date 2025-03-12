@@ -242,7 +242,7 @@ export default function Page() {
               </div>              
             </div>
             <section className='border-t-[1px] border-t-gray-200 my-4'></section>
-            <h1 className='font-bold text-xl'>Información de Precio</h1>
+            <h1 className='font-bold text-xl'>Información del Precio</h1>
             <div className='flex flex-row mt-4'>
               <div className='flex-1'>
                 <h1>Soles (S/.)<span className='text-red-500'>*</span></h1>

@@ -9,7 +9,11 @@ export default function Page() {
           <p className='text-white'>Los servicios ofrecidos por grupo ByZ</p>
         </div>
       </div>
+      <section className='border-t-[1px] border-t-gray-200 my-4'></section>
 
+      <div>
+        
+      </div>
     </div>
   )
 }

@@ -1,11 +1,14 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 
 export default function ButtonDialogStatus({
     data=[],
     initialData="",
-    handleChangeStatus
+    handleChangeStatus,
+    limitContent=1,
+    className=""
 }) {
    
     
@@ -16,7 +19,7 @@ export default function ButtonDialogStatus({
         >
             <Button
                 variant="ghost"
-                className="border border-slate-100 shadow-sm w-full"
+                className={cn('border border-slate-100 shadow-sm w-full', className)}
             >
                 {initialData}
             </Button>
@@ -24,7 +27,7 @@ export default function ButtonDialogStatus({
         <DropdownMenuContent>
            {
             data?.map((item, idx)=>{
-                if (idx <= 1) {
+                if (idx <= limitContent) {
                     return <DropdownMenuCheckboxItem 
                     key={idx}
                     className="capitalize"
