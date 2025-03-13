@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Input } from '../ui/input'
 import { ButtonDropdownProperties } from '../Buttons'
 import { Button } from '../ui/button'
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function SearchPropertyBanner() {
     const typeSearch=[
@@ -53,7 +54,7 @@ export default function SearchPropertyBanner() {
         setStateVariantProperty(newDataPropertie);
     }
   return (
-    <div className='mt-8 max-w-3xl w-full h-24 rounded-lg flex flex-col justify-center items-center'>
+    <div className='mt-8 max-w-4xl w-full h-24 rounded-lg flex flex-col justify-center items-center'>
         <div className='w-full'>
             <ul className='w-fit flex flex-row bg-white rounded-t-lg px-2 '>
                 {
@@ -72,12 +73,13 @@ export default function SearchPropertyBanner() {
                 handleChangeStatus={handleChangePropertie}
             />
             <input
-                className="outline-none w-full px-4 border border-gris rounded-lg text-lg ml-2"
+                placeholder='Buscar segun la ubicación ...'
+                className="outline-none w-full px-4 py-3 border border-gris rounded-lg text-lg ml-2"
             />  
             <Button 
                 variant="ghost"
-                className="bg-naranja border shadow-none text-lg font-bold  text-white hover:bg-orange-400 hover:text-white  border-none p-5 ml-2">
-                <h1>Buscar</h1>
+                className="bg-naranja border shadow-none text-lg font-bold rounded-xl w-32 h-14 text-white hover:bg-orange-400 hover:text-white  border-none p-5 ml-2">
+                <h1> Buscar </h1>
             </Button>
         </div>
     </div>

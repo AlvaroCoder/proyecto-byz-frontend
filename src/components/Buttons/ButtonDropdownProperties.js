@@ -14,7 +14,7 @@ export default function ButtonDropdownProperties({
         >
             <Button
                 variant="ghost"
-                className="border max-w-36 border-gris w-full p-5 text-lg "
+                className="border max-w-40 border-gris h-14 rounded-lg w-full p-5 text-lg "
             >
                 {data.filter(item=>item.isSelected)[0]?.value }
             </Button>
@@ -25,11 +25,11 @@ export default function ButtonDropdownProperties({
                 <DropdownMenuCheckboxItem 
                     key={idx}
                     
-                    className="capitalize hover:bg-naranja"
+                    className="capitalize hover:bg-orange-500 text-lg"
                     onCheckedChange={()=>handleChangeStatus(idx)}
                     checked={item?.isSelected}
                 >
-                    {item?.value}
+                    <h1>{item?.value}</h1>
                 </DropdownMenuCheckboxItem>)
             }
         </DropdownMenuContent>
