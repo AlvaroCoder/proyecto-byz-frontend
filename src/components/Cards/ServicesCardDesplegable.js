@@ -9,9 +9,9 @@ export default function ServicesCardDesplegable({
   const {title, img, urlName} = data;
   return (
     <motion.div
-      className='w-full h-80 flex flex-row items-center bg-gray-300 justify-between mt-4 object-cover'
-      whileHover={{height : 500}}
-      transition={{type :"spring", stiffness : 200}}
+      className='w-full h-60 flex flex-row items-center bg-gray-300 justify-between mt-4 object-cover'
+      whileHover={{height : 400}}
+      transition={{type :"spring", stiffness : 150}}
     >
       <div className='w-full h-full relative '>
         <Image

@@ -11,14 +11,22 @@ import MapIcon from '@mui/icons-material/Map';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { FormContactPage } from "@/components/Forms";
 import { IMAGES_MAIN_SERVICES } from "@/assets/ImagesServices";
+import Image from "next/image";
+import { SearchPropertyBanner } from "@/components/Commons";
 
 export default function Home() {
 
   const IMAGE="https://res.cloudinary.com/dabyqnijl/image/upload/v1738772836/b5faz55hpmkhjxtnq1dh.png";
+  const IMAGE_BUY_HOUSE = "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813094/ImagesByZ/Icons/uvokqndyyfmtkjq1vpsh.png";
+  const IMAGE_RENT_HOUSE= "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813093/ImagesByZ/Icons/ljnnuoym8j8ij0dimgbt.png";
+  const IMAGE_SELL_HOUSE="https://res.cloudinary.com/dabyqnijl/image/upload/v1741813432/ImagesByZ/Icons/iflgzxayqhbspwitkyal.png";
+
+  const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/v1741805665/ImagesByZ/gljjm312uxdaiand8e8h.jpg";
+
   const listService = [
-    {title : "Compra",description : "Encuentra los inmuebles más cerca de ti que están en venta", linkName : "/",  image : IMAGE},
-    {title : "Alquiler", description : "Alquila tu próximo inmueble de una forma fácil y segura", linkName : "/",  image : IMAGE},
-    {title : "Vende con ByZ", description : "Te daremos la mejor oferta del mercado", linkName : "/",  image : IMAGE},
+    {title : "Compra",description : "Encuentra los inmuebles más cerca de ti que están en venta", linkName : "/",  image : IMAGE_BUY_HOUSE},
+    {title : "Alquiler", description : "Alquila tu próximo inmueble de una forma fácil y segura", linkName : "/",  image : IMAGE_RENT_HOUSE},
+    {title : "Vende con ByZ", description : "Te daremos la mejor oferta del mercado", linkName : "/",  image : IMAGE_SELL_HOUSE},
   ]
 
   const projectSale = [
@@ -81,19 +89,18 @@ export default function Home() {
   
   return (
     <section className="w-full min-h-screen">      
-      <section className="w-full bg-gray-200 h-96 flex flex-col items-center justify-center">
-        <h1 className="font-bold text-4xl">Tu espacio, tu historia, nuestra especialidad</h1>
-        <div className="relative w-1/2 mt-4">
-          <Input
-            placeholder="Encuentra tu próximo inmueble"
-            className="py-5 rounded-3xl bg-white relative text-gris"
+      <section className="w-full bg-gray-200 h-96 flex flex-col items-center justify-center relative">
+        <div className="absolute w-full h-full inset-0 opacity-50">
+          <Image
+            src={IMAGE_BANNER}
+            alt="Imagen de banner"
+            layout="fill"
+            objectFit="cover"
           />
-         <Button
-          variant="ghost"
-          className="absolute top-0.5 right-0 h-10 bg-gris rounded-full text-white"
-         >
-          <SearchIcon/>
-         </Button>
+        </div>
+        <div className="w-full flex flex-col items-center justify-center z-10">
+          <h1 className="font-bold text-4xl">Tu espacio, tu historia, nuestra especialidad</h1>
+          <SearchPropertyBanner/>
         </div>
       </section>
       <section className="">
@@ -127,11 +134,13 @@ export default function Home() {
         <section className="w-full min-h-screen mt-14 flex items-center  justify-center py-4 flex-col ">
           <h1 className="font-bold text-3xl">Nuestros Servicios</h1>
           <p>Desde la concepción hasta la finalización</p>
-          <div className="w-full mt-8">
+          <section className="w-full mt-8 flex justify-center">
+          <div className="w-full max-w-6xl">
             {
               IMAGES_MAIN_SERVICES?.map((item, idx)=><ServicesCardDesplegable key={idx} data={item}/>)
             }
           </div>
+          </section>
         </section>
       </section>
       <section className="h-[600px] mt-8 bg-gris flex flex-row items-center justify-center px-12 overflow-hidden">

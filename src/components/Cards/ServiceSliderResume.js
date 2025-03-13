@@ -5,7 +5,7 @@ export default function ServiceSliderResume({data}) {
     const {title, image, linkName, description} = data;
 
     return (
-    <div className='flex flex-col justify-center items-center h-[420px] py-8 px-4  border border-gris  bg-white shadow-sm'>
+    <div className='flex flex-col justify-center items-center h-[460px] py-8 px-4  border rounded-lg border-gris  bg-white shadow-sm'>
         <Image
             width={300}
             height={600}
