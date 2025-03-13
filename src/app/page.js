@@ -2,9 +2,6 @@
 import { ButtonNaranja } from "@/components/Buttons";
 import ButtonNaranjaTwo from "@/components/Buttons/ButtonNaranjaTwo";
 import { ProjectCard, ServicesCardDesplegable, ServiceSliderResume } from "@/components/Cards";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
 
 import MapIcon from '@mui/icons-material/Map';
@@ -15,12 +12,9 @@ import Image from "next/image";
 import { SearchPropertyBanner } from "@/components/Commons";
 
 export default function Home() {
-
-  const IMAGE="https://res.cloudinary.com/dabyqnijl/image/upload/v1738772836/b5faz55hpmkhjxtnq1dh.png";
   const IMAGE_BUY_HOUSE = "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813094/ImagesByZ/Icons/uvokqndyyfmtkjq1vpsh.png";
   const IMAGE_RENT_HOUSE= "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813093/ImagesByZ/Icons/ljnnuoym8j8ij0dimgbt.png";
   const IMAGE_SELL_HOUSE="https://res.cloudinary.com/dabyqnijl/image/upload/v1741813432/ImagesByZ/Icons/iflgzxayqhbspwitkyal.png";
-
   const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/v1741805665/ImagesByZ/gljjm312uxdaiand8e8h.jpg";
 
   const listService = [
@@ -89,7 +83,7 @@ export default function Home() {
   
   return (
     <section className="w-full min-h-screen">      
-      <section className="w-full bg-gray-200 h-96 flex flex-col items-center justify-center relative">
+      <section className="w-full bg-gray-200 h-[500px] flex flex-col items-center justify-center relative">
         <div className="absolute w-full h-full inset-0 opacity-50">
           <Image
             src={IMAGE_BANNER}

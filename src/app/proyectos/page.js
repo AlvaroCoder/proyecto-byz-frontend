@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react'
+import { useFetch } from '../hooks/useHooks';
 
 export default function Page() {
   const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/t_crop_family/kmyseko3q7rzir0wacze";
-
   return (
     <div className='w-full min-h-screen'>
       <section className='w-full h-[600px] bg-gray-300 relative flex items-center justify-center'>
@@ -20,7 +20,9 @@ export default function Page() {
           <p className='mt-4 text-gris'>Descubre el espacio; para tu futuro. Encuentra el mejor y más cercano para ti.</p>
         </div>
       </section>
-      
+      <section>
+
+      </section>
     </div>
   )
 }
