@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Input } from '../ui/input'
 import { ButtonDropdownProperties } from '../Buttons'
+import { Button } from '../ui/button'
 
 export default function SearchPropertyBanner() {
     const typeSearch=[
@@ -70,10 +71,14 @@ export default function SearchPropertyBanner() {
                 data={stateVariantProperty}
                 handleChangeStatus={handleChangePropertie}
             />
-            <Input
-
+            <input
+                className="outline-none w-full px-4 border border-gris rounded-lg text-lg ml-2"
             />  
-
+            <Button 
+                variant="ghost"
+                className="bg-naranja border shadow-none text-lg font-bold  text-white hover:bg-orange-400 hover:text-white  border-none p-5 ml-2">
+                <h1>Buscar</h1>
+            </Button>
         </div>
     </div>
   )

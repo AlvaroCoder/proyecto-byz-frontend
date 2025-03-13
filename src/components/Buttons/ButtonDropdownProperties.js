@@ -14,7 +14,7 @@ export default function ButtonDropdownProperties({
         >
             <Button
                 variant="ghost"
-                className="border max-w-36 border-gris w-full p-5 text-lg"
+                className="border max-w-36 border-gris w-full p-5 text-lg "
             >
                 {data.filter(item=>item.isSelected)[0]?.value }
             </Button>
