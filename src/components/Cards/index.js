@@ -6,3 +6,4 @@ export {default as ProjectCard} from "@/components/Cards/ProjectCard";
 export {default as ImageCardBanner} from "@/components/Cards/ImageCardBanner";
 export {default as MapPickerCard} from "@/components/Cards/MapPickerCard";
 export {default as CarrouselImagesCard} from "@/components/Cards/CarrouselImagesCard";
+export {default as GridCardProjects} from "@/components/Cards/GridCardProjects";

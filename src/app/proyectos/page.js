@@ -1,9 +1,15 @@
+'use client'
 import Image from 'next/image';
 import React from 'react'
 import { useFetch } from '../hooks/useHooks';
+import { GridLoadingCard } from '@/components/Loading';
+import { GridCardProjects } from '@/components/Cards';
 
 export default function Page() {
   const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/t_crop_family/kmyseko3q7rzir0wacze";
+  const URL_GET_PROYECTOS =process.env.NEXT_PUBLIC_GET_PROJECTS_2;
+  const {data : dataProjects, loading : loadinDataProjects, error : errorDataProjects} = useFetch(URL_GET_PROYECTOS);
+  
   return (
     <div className='w-full min-h-screen'>
       <section className='w-full h-[600px] bg-gray-300 relative flex items-center justify-center'>
@@ -20,8 +26,16 @@ export default function Page() {
           <p className='mt-4 text-gris'>Descubre el espacio; para tu futuro. Encuentra el mejor y más cercano para ti.</p>
         </div>
       </section>
-      <section>
-
+      <section className='w-full flex justify-center items-center my-8'>
+        <div className='max-w-6xl w-full'>
+          {
+            loadinDataProjects ? 
+            <GridLoadingCard/>:
+            <GridCardProjects
+              data={dataProjects?.projects}
+            />
+          }
+        </div>
       </section>
     </div>
   )

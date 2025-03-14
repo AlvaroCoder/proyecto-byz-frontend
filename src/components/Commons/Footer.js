@@ -52,7 +52,7 @@ export default function Footer() {
       </div>
       </section>
       <section className='w-full flex justify-center items-center text-sm'>
-          <p className='text-gray-500'>@2025 Grupo ByZ by COSAI branding</p>
+          <p className='text-gray-500'>@2025 Copyrigth by COSAI branding</p>
       </section>
     </footer>
   )
