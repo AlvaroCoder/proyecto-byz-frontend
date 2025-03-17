@@ -72,9 +72,9 @@ export default function MainBannerCardProject({
                 </div>
                 <h1 className='font-bold mt-4 '>Alrededores</h1>
                 <ul className='ml-8 list-disc'>
-                        {
-                            data?.location?.surroundings?.map((item)=><li key={item} className='text-lg'>{item}</li>)
-                        }
+                    {
+                        data?.location?.surroundings?.map((item)=><li key={item} className='text-lg'>{item}</li>)
+                    }
                 </ul>
             </div>
         </div>
@@ -147,13 +147,15 @@ export default function MainBannerCardProject({
                     }
             </ul>
         </section>
-        <section>
-            <h1>Ubicación</h1>
-            <div className='w-full h-64'>
-                <GoogleMapCard
-                    lat={latitud}
-                    lng={longitud}
-                />
+        <section className='my-8 flex justify-center items-center'>
+            <div className='w-full min-h-[500px]  max-w-6xl h-72 flex  flex-col  justify-center'>
+                <h1 className='font-bold text-4xl mb-4'>Ubicación en el mapa</h1>    
+                <div className='min-h-[300px] bg-black'>
+                    <GoogleMapCard
+                            lat={latitud}
+                            lng={longitud}
+                        />
+                </div>
             </div>
         </section>
     </section>
