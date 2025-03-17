@@ -3,12 +3,16 @@ import React from 'react'
 import CarrouselImagesCard from './CarrouselImagesCard';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function GridCardProjects({
     data=[]
 }) {
+    console.log(data);
+    
   return (
-    <div className='w-full grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 py-4'>
+    <div className='w-full grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 py-4'>
         {
             data?.map((item, idx)=>
             <div
@@ -34,7 +38,13 @@ export default function GridCardProjects({
                 </div>
                 <div className='p-4'>
                     <h1 className='font-bold text-naranja text-3xl'>${item?.price?.dolar} - ${item?.price?.soles} </h1>
-                    <h1 className='font-bold text-lg'>{item?.name}</h1>
+                    <Link
+                        href={{
+                            pathname : `/proyectos/${item?._id}`,
+                        }}
+                    >
+                        <h1 className='font-bold text-lg hover:underline'>{item?.name}</h1>
+                    </Link>
                     <p className='p-1 rounded-lg bg-naranja text-white  w-fit my-1 text-sm '>{item?.status}</p>
                     <p className='text-sm'>{item?.description}</p>
                     <p className='flex flex-row items-center mt-4 text-gray-500 text-sm'><LocationOnIcon/> <span className=' ml-2'>{item?.location?.detailedLocation?.zone}</span></p>

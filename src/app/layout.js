@@ -17,6 +17,8 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Grupo ByZ",
   description: "WebPage de grupo ByZ",
+  author : "Alvaro Felipe",
+  copyrigth : "Grupo ByZ"
 };
 
 export default function RootLayout({ children }) {
