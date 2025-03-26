@@ -2,61 +2,24 @@
 import { useFetch } from '@/app/hooks/useHooks';
 import { LoadingWindowProject } from '@/components/Loading';
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { FormAddPropertie } from '@/components/Forms';
+import { FormAddPropertie, FormAddRealStateAgent, FormPreview } from '@/components/Forms';
 
 export default function Page() {
-  const router = useRouter();
-  const URL_STATUS=process.env.NEXT_PUBLIC_GET_STATUS_PROPERTIES;
   const [loadingDataSave, setLoadingDataSave] = useState(false);
 
-  const [dataNewProperties, setDataNewProperties] = useState({
-    name : "",
-    description : "",
-    location : {
-      detailedLocation : null,
-      surroundings : []
-    },
-    geographicalDetails : {
-      totalArea : {
-        frontage : "",
-        depth : "",
-        units : "mt2"
-      },
-      coveredArea :  {
-        frontage : "",
-        depth : "",
-        units : "mt2"
-      }
-    },
-    features : {
-      antiquity : null,
-      floors : 0,
-      rooms : 0,
-      bathrooms : 0,
-      garage : 0,
-      waterService : false,
-      lightService : false
-    },
-    images : [],
-    status : 'Venta disponible',
-    price : {
-      soles : "",
-      dolar : ""
-    },
-    reservedTime : (new Date()).toISOString(),
-    creationTime : (new Date()).toISOString()
-  });
 
-  const {data : dataStatusProperties, loading : loadingStatusProperties, error : errorDataStatusProperties} = useFetch(URL_STATUS);
   const [stateSavePropertie, setStateSavePropertie] = useState([
-    {value : "Propietario", isSelected : true},
-    {value : "Acerca de la propiedad", isSelected : false},
-    {value : "Previsualización", isSelected : false}
+    {value : "Propietario", isSelected : true, Component : FormAddRealStateAgent},
+    {value : "Acerca de la propiedad", isSelected : false, Component : FormAddPropertie},
+    {value : "Previsualización", isSelected : false, Component: FormPreview}
   ]);
+
+  const [userSelected, setUserSelected] = useState(null);
+  
   const handleClickChangeStateSave=(idx)=>{
     const newDataStateSave = stateSavePropertie?.map((item, i)=>{
       if (idx === i) {
@@ -72,28 +35,10 @@ export default function Page() {
     });
     setStateSavePropertie(newDataStateSave);
   }
-  const handleChange=(evt)=>{
-    const target = evt.target;
-    setDataNewProperties({
-      ...dataNewProperties,
-      [target.name] : target.value
-    })
-  }
-  const handleChangeStatusPropertie=()=>{
+  const ComponentSelected = useMemo(()=>{
+    return stateSavePropertie?.filter((data)=>data.isSelected)[0].Component
+  })
 
-  }
-  const handleChangeGeographicalDetail=()=>{
-
-  }
-  const handleChangeLocation=(data)=>{
-    setDataNewProperties(prev=>({
-      ...prev,
-      location : {
-        ...prev.location,
-        detailedLocation : data
-      }
-    }))
-  };
   return (
     <section className='w-full min-h-24 overflow-y-auto p-8'>
       <LoadingWindowProject
@@ -110,15 +55,7 @@ export default function Page() {
           }
         </ul>
       </section>
-      <FormAddPropertie
-        initialData={dataNewProperties}
-        dataStatusPropertie={dataStatusProperties}
-        handleChange={handleChange}
-        loadingDataStatusPropertie={loadingStatusProperties}
-        handleChangeStatusPropertie={handleChangeStatusPropertie}
-        setDataNewPropertie={setDataNewProperties}
-        handleChangeLocation={handleChangeLocation}
-      />
+      <ComponentSelected/>
     </section>
   )
 }

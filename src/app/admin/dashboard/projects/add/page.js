@@ -157,7 +157,7 @@ export default function Page() {
     
   }
   return (
-    <section className='w-full min-h-24 overflow-y-auto p-8'>
+    <section className='w-full  p-8'>
       <LoadingWindowProject
         loading={loadingDataSave}
       />

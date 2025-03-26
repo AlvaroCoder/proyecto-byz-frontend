@@ -73,7 +73,7 @@ export default function MainBannerCardProject({
                 <h1 className='font-bold mt-4 '>Alrededores</h1>
                 <ul className='ml-8 list-disc'>
                     {
-                        data?.location?.surroundings?.map((item)=><li key={item} className='text-lg'>{item}</li>)
+                        data?.location?.surroundings?.map((item, key)=><li key={key} className='text-lg'>{item}</li>)
                     }
                 </ul>
             </div>

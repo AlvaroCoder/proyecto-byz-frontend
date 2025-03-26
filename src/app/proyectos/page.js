@@ -7,7 +7,7 @@ import { GridCardProjects } from '@/components/Cards';
 
 export default function Page() {
   const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/t_crop_family/kmyseko3q7rzir0wacze";
-  const URL_GET_PROYECTOS =process.env.NEXT_PUBLIC_GET_PROJECTS_2;
+  const URL_GET_PROYECTOS =process.env.NEXT_PUBLIC_GET_PROJECTS;
   const {data : dataProjects, loading : loadinDataProjects, error : errorDataProjects} = useFetch(URL_GET_PROYECTOS);
   
   return (

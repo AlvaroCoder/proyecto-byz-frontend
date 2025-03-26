@@ -9,3 +9,4 @@ export {default as CarrouselImagesCard} from "@/components/Cards/CarrouselImages
 export {default as GridCardProjects} from "@/components/Cards/GridCardProjects";
 export {default as CarrouselImageCardWaitButton} from "@/components/Cards/CarrouselImageCardWaitButton";
 export {default as GoogleMapCard} from "@/components/Cards/GoogleMapCard";
+export {default as MapPickerCardv2} from "@/components/Cards/MapPickerCardv2";

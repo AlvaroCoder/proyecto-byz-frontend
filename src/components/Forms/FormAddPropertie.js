@@ -16,27 +16,71 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import GarageIcon from '@mui/icons-material/Garage';
 import { Switch } from '../ui/switch'
 import { SeparatorForms } from '../Commons'
+import { useFetch } from '@/app/hooks/useHooks'
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 export default function FormAddPropertie({
-    initialData={},
-    handleChange,
-    setDataNewPropertie,
-    loadingDataStatusPropertie=false,
-    dataStatusPropertie,
     handleChangeStatusPropertie,
-    handleChangePrice,
-    handleChangeLocation
 }) {
+    const URL_STATUS=process.env.NEXT_PUBLIC_GET_STATUS_PROJECTS;
+    const {data : dataStatusProject, error, loading : loadingDataStatusProject} = useFetch(URL_STATUS);
+
+    const [dataNewProperties, setDataNewProperties] = useState({
+        name : "",
+        description : "",
+        location : {
+          detailedLocation : null,
+          surroundings : []
+        },
+        geographicalDetails : {
+          totalArea : {
+            frontage : "",
+            depth : "",
+            units : "mt2"
+          },
+          coveredArea :  {
+            frontage : "",
+            depth : "",
+            units : "mt2"
+          }
+        },
+        features : {
+          antiquity : null,
+          floors : 0,
+          rooms : 0,
+          bathrooms : 0,
+          garage : 0,
+          waterService : false,
+          lightService : false
+        },
+        images : [],
+        status : 'Venta disponible',
+        price : {
+          soles : "",
+          dolar : ""
+        },
+        reservedTime : (new Date()).toISOString(),
+        creationTime : (new Date()).toISOString()
+    });
+
+    const handleChangeSaveNewProperty=(evt)=>{
+
+    }
     const [dataGeographicalDetail, setDataGeographicalDetail] = useState({
         frontage : "",
         depth : '',
         units : 'm2'
     });
+
+    const totalArea = Number(dataGeographicalDetail?.depth)*Number(dataGeographicalDetail.frontage);
+
     const [dataGeographicalCoveredDetail, setDataGeographicalCoveredDetail] = useState({
         frontage : "",
         depth : "",
         units : "mt2"
     });
+
+    const totalAreaCovered = Number(dataGeographicalCoveredDetail?.depth)*Number(dataGeographicalCoveredDetail?.frontage);
     const [dataAntiquityTimes, setDataAntiquityTimes] = useState([
         {value : "Meses"},
         {value : "Años"}
@@ -51,7 +95,35 @@ export default function FormAddPropertie({
     const handleChangeGrographicalDetailCovered=(evt)=>{
 
     }
+    const handleChangeInput=(evt)=>{
+        const target = evt.target;
+        setDataNewProperties({
+            ...dataNewProperties,
+            [target.name] : target.value
+        })
+    }
+    const handleChangePrice=(evt)=>{
+        const target = evt.target;
+        setDataNewProperties(prev=>({
+            ...prev,
+            price : {
+                ...prev.price,
+                [target.name] : target.value
+            }
+        }))
+    }
+    const hanldeChangeUploadImage=()=>{
 
+    }
+    const handleChangeMapLocation=(data)=>{
+        setDataNewProperties(prev=>({
+            ...prev,
+            location : {
+                ...prev.location,
+                detailedLocation : data
+            }
+        }))
+    }
   return (
     <section className='w-full grid grid-cols-1 lg:grid-cols-3 gap-8'>
         <section className='lg:col-span-2 p-4 rounded-lg'>
@@ -63,8 +135,8 @@ export default function FormAddPropertie({
                         <h1>Nombre del proyecto <span className='text-red-500'>*</span></h1>
                         <Input
                             name="name"
-                            value={initialData?.name}
-                            onChange={handleChange}
+                            value={dataNewProperties?.name}
+                            onChange={handleChangeInput}
                             required
                         />
                     </div>
@@ -72,7 +144,7 @@ export default function FormAddPropertie({
                         <h1>Estado</h1>
                         <div>
                             {
-                                loadingDataStatusPropertie ?
+                                loadingDataStatusProject ?
                                 <Button
                                     variant="ghost"
                                     className="w-full shadow-sm border border-slate-100"
@@ -80,8 +152,8 @@ export default function FormAddPropertie({
                                   <Loader2 className='animate-spin' />  
                                 </Button>:
                                 <ButtonDropdownStatus
-                                    initialData={initialData?.status}
-                                    data={dataStatusPropertie?.projects}
+                                    initialData={dataNewProperties?.status}
+                                    data={dataStatusProject?.projects}
                                     handleChangeStatus={handleChangeStatusPropertie}
                                 />
                             }   
@@ -91,16 +163,16 @@ export default function FormAddPropertie({
                 <h1 className='mt-4'>Descripción de la propiedad <span className='text-red-500'>*</span></h1>
                 <Textarea
                     name="description"
-                    value={dataStatusPropertie?.description}
-                    onChange={handleChange}
+                    value={dataNewProperties?.description}
+                    onChange={handleChangeInput}
                     required
                 />
 
                 <div className='mt-4'>
                     <h1>Imagenes de la Propiedad <span className='text-red-500'>*</span></h1>
                     <BoardCarrouselImages
-                        dataImages={initialData}
-                        handleChangeImages={setDataNewPropertie}
+                        dataImages={dataNewProperties}
+                        handleChangeImages={hanldeChangeUploadImage}
                     />
                 </div>
                 <SeparatorForms/>
@@ -214,7 +286,7 @@ export default function FormAddPropertie({
                             type="number"
                             name="soles"
                             placeholder="0.0"
-                            value={initialData?.price?.soles}
+                            value={dataNewProperties?.price?.soles}
                             onChange={handleChangePrice}
                         />
                     </div>
@@ -224,7 +296,8 @@ export default function FormAddPropertie({
                             type="number"
                             name="dolar"
                             placeholder="0.0"
-                            value={initialData?.price?.dolar}
+                            value={dataNewProperties?.price?.dolar}
+                            onChange={handleChangePrice}
                         />
                     </div>
                 </div>
@@ -245,8 +318,16 @@ export default function FormAddPropertie({
                     </Button>
                 </div>
                 <MapPickerCard
-                    handleChangeLocation={handleChangeLocation}
+                    handleChangeLocation={handleChangeMapLocation}
                 />
+                <SeparatorForms/>
+                <Button
+                    variant="ghost"
+                    onClick={handleChangeSaveNewProperty}
+                    className="bg-orange-400 hover:bg-orange-300 py-4 text-white hover:text-gris w-full"
+                >
+                    <p>Guardar Propiedad</p>
+                </Button>
             </section>
         </section>
         <section className='p-4 rounded-lg'>
@@ -254,16 +335,16 @@ export default function FormAddPropertie({
             <section className='w-full mt-4 rounded-lg bg-white p-2'>
                 <div className='relative w-full h-48 rounded-lg'>
                     {
-                        initialData?.images?.length > 0?
+                        dataNewProperties?.images?.length > 0?
                         (
-                            initialData?.images?.length > 1 ?
+                            dataNewProperties?.images?.length > 1 ?
                             <CarrouselImagesCard
-                                images={initialData?.images}
+                                images={dataNewProperties?.images}
                                 
                             />:
                             <div className='absolute inset-0 w-full h-full rounded-lg'>
                                 <Image
-                                    src={initialData?.images[0]?.preview}
+                                    src={dataNewProperties?.images[0]?.preview}
                                     alt='Imagen de previsualización'
                                     className='rounded-lg'
                                     objectFit='cover'
@@ -275,6 +356,14 @@ export default function FormAddPropertie({
                             <h1 className='text-gris'>Sube una imagen</h1>
                         </div>
                     }
+                </div>
+                <div className='p-4'>
+                    <h1 className='font-bold text-naranja text-4xl'>$ {dataNewProperties.price.dolar || "0.0"}</h1>
+                    <h1 className='font-bold text-lg'>{dataNewProperties?.name || "Titulo del proyecto"}</h1>
+                    <p className='p-1 rounded-lg bg-naranja text-white font-bold w-fit my-1 text-sm'>{dataNewProperties?.status}</p>
+                    <p className='text-sm'>{dataNewProperties?.description || "La descripción debe indicar aspectos generales del proyecto. Información del precio, ubicación y área. Todo ello debe ser preciso."}</p>
+                    <p className='flex flex-row items-center mt-4 text-gray-500 text-sm'><LocationOnIcon/> <span className='ml-2'>{dataNewProperties?.location?.detailedLocation?.zone || "Ubicación de la propiedad"}</span></p>
+                    <h1>Area Total : <span>{}</span></h1>
                 </div>
             </section>
         </section>

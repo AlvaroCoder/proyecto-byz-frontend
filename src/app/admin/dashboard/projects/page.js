@@ -12,7 +12,7 @@ export default function Page() {
   const {data : dataStatusProjects, loading : loadingDataStatusProjects, error : errorDataStatusProjects} = useFetch(URL_GET_STATUS_PROJECTS);
     
   return (
-    <div className='w-full h-full overflow-y-auto p-8'>
+    <div className='w-full h-full  p-8'>
       <section className='w-full flex flex-row justify-between'>
         <div>
           <h1 className='text-2xl font-bold'>Proyectos inmobiliarios</h1>

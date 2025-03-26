@@ -40,7 +40,7 @@ export default function GridCardProjects({
                     <h1 className='font-bold text-naranja text-3xl'>${item?.price?.dolar} - ${item?.price?.soles} </h1>
                     <Link
                         href={{
-                            pathname : `/proyectos/${item?._id}`,
+                            pathname : `/proyectos/${item?.id}`,
                         }}
                     >
                         <h1 className='font-bold text-lg hover:underline'>{item?.name}</h1>

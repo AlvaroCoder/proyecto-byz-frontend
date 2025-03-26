@@ -7,8 +7,10 @@ import React from 'react'
 
 export default function Page() {
     const {slug} = useParams();
+    console.log(slug);
+    
     const URL_GET_PROJECT_BY_ID =process.env.NEXT_PUBLIC_GET_PROJECTS;
-  
+
     const {data : dataProject, loading : loadingDataProject, error : errorDataProject} = useFetch(`${URL_GET_PROJECT_BY_ID}${slug.trim()}`);
     console.log(dataProject);
     

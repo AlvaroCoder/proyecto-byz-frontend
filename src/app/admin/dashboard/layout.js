@@ -4,14 +4,16 @@ import React from 'react'
 export default function DashboardLayout({children}) {
   return (
     <div
-        className='w-full min-h-screen flex flex-row'
+        className='w-full min-h-screen flex flex-row overflow-hidden'
     >
         <SidebarNavigationDashboard/>
         <section
-          className='w-full min-h-screen flex flex-col bg-gray-100 overflow-y-hidden'
+          className='w-full  flex flex-col bg-gray-100 overflow-hidden'
         >
           <TopBarNavigationDashboard/>
-          {children}
+          <section className='overflow-y-auto max-h-screen'>
+            {children}
+          </section>
         </section>
     </div>
   )

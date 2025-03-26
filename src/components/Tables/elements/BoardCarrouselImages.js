@@ -40,7 +40,7 @@ export default function BoardCarrouselImages({
         <div className="flex gap-3 flex-wrap">
         {dataImages?.images?.map((img, index) => (
           <div key={index} className="relative w-24 h-24 rounded-lg overflow-hidden">
-            <img src={img.preview} alt="preview" className="w-full h-full object-cover rounded-lg" />
+            <img src={typeof(img) === 'object' ? img.preview : img} alt="preview" className="w-full h-full object-cover rounded-lg" />
             <button 
               className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full shadow"
               onClick={() => removeImage(index)}
