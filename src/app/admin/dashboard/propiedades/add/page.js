@@ -11,7 +11,6 @@ export default function Page() {
   const [stateSavePropertie, setStateSavePropertie] = useState([
     {value : "Propietario", isSelected : true, Component : FormAddRealStateAgent},
     {value : "Acerca de la propiedad", isSelected : false, Component : FormAddPropertie},
-    {value : "Previsualización", isSelected : false, Component: FormPreview}
   ]);
 
   const [userSelected, setUserSelected] = useState(null);

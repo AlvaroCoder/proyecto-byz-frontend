@@ -3,119 +3,131 @@ import { CarrouselImagesCard } from '@/components/Cards'
 import React, { useState } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Image from 'next/image';
-import FormularioEditProject from './FormularioEditProject';
-import { X } from 'lucide-react';
 import { UPDATE_DATA_PROJECT, UPLOAD_IMAGE } from '@/lib/apiConnections';
 import { SeparatorForms } from '@/components/Commons';
+import { DialogProjectEdit } from '@/components/Dialogs';
 
-function DialogProjectEdit({
-  data,
-  isOpen=false,
-  handleChangeOpen,
-  handleSaveNewData,
-  handleChangeImage
-}) {
-  
-  return(
-    <aside className="relative">
-      {/* Fondo opaco */}
-      {isOpen && (
-        <div
-          className="z-20 fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-          onClick={handleChangeOpen}
-        />
-      )}
-
-      {/* Ventana lateral */}
-      <div
-        className={`z-20 fixed top-0 right-0 max-h-screen overflow-y-auto w-[600px] lg:w-1/2  bg-white shadow-lg p-6 transform transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        {/* Botón para cerrar */}
-        <button
-          className="absolute top-4 right-4 text-gray-600"
-          onClick={handleChangeOpen}
-        >
-          <X/>
-        </button>
-
-        <h2 className="text-3xl font-bold mb-4">Editar Proyecto</h2>
-        <FormularioEditProject
-          handleSaveNewData={handleSaveNewData}
-          handleChangeImage={handleChangeImage}
-          data={data}
-        />
-      </div>
-    </aside>
-  )
-}
 
 export default function BoardProjects({
   data=[],
   handleChangeLoading,
-  
+  handleUpdateChange
 }) {
   
   const [isOpenFormEdit, setIsOpenFormEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
 
+  // Funcion de abrir venta de edicion del proyecto
   const handleClickEdit=(item)=>{
     setDataEdit(item)    
     setIsOpenFormEdit(true);
   }
-  const handleSaveNewData=async(dataEditProject)=>{
-    // Validar si existe un cambio en el atributo de imagenes
-    handleChangeLoading();
-    let newDataToSave = dataEditProject;
-    
-    if (dataEditProject?.images !== data?.filter((item)=>item?.id === dataEditProject?.id)[0]?.images) {
-      
-      const urlImages = await Promise.all(
-        dataEditProject?.images?.map(async(item)=>{
-          try {
-            if (typeof(item) === 'object') {
-              const formData = new FormData();
-              formData.append("image", item?.file);
-  
-              const url_images = await UPLOAD_IMAGE(formData);
-              if (!url_images.ok) {
-                console.log(await url_images.json());
-                alert("Surgio un error al subir las imágenes");
-                handleChangeLoading();
-                return;
-              }
-              return (await url_images.json())?.url;
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        })
-
-      );
-      newDataToSave = {
-        ...dataEditProject,
-        images : urlImages
+  // Funcion de realizar cambios en los inputs
+  const handleChangeInput=(evt)=>{
+    const target = evt.target;
+    setDataEdit({
+      ...dataEdit,
+      [target.name] : target.value
+    })
+  }
+  // Funcion de realizar cambios en la propiedad de grographicalDetails
+  const handleChangeInputGeographiCalDetails=(evt)=>{
+    const target = evt.target;
+    setDataEdit((prev)=>({
+      ...dataEdit,
+      geographicalDetails : {
+       totalArea : {
+        ...prev.geographicalDetails.totalArea,
+        [target.name] : target.value
+       }
       }
-      
-    }    
+    }))
+  }
+  // Funcion de realizar cambios en la parte de informacion del precio
+  const handleChangeInputPrice=(evt)=>{
+    const target = evt.target;
+    setDataEdit((prev)=>({
+      ...dataEdit,
+      price :{
+        ...prev.price,
+        [target.name] : target.value
+      }
+    }));
+  }
+  // Funcion de agregar lugares de alrededor
+  const handleAddDataSurroundings=(data)=>{
+    setDataEdit((prev)=>({
+      ...dataEdit,
+      location : {
+        ...prev.location,
+        surroundings : [
+          ...prev.location.surroundings,
+          data
+        ]
+      }
+    }))
+  }
+  // Funcion de quitar lugares de alrededor
+  const handleDeleteDataSurroundings=(idx)=>{
     
+    const surroundingFilter = dataEdit?.location?.surroundings?.filter((_, key)=>idx !== key);
+    setDataEdit((prev)=>({
+      ...dataEdit,
+      location :{
+        ...prev.location,
+        surroundings : surroundingFilter
+      }
+    }))
+  }
+  // Funcion de actualizar proyecto
+  const handleSaveUpdateProject=async(dataEditProject)=>{
+    console.log(dataEditProject);
     try {
-      
-      console.log(newDataToSave);
-      const saveChanges = await UPDATE_DATA_PROJECT(newDataToSave);
+      handleChangeLoading();
+      let newDataToSave =dataEditProject;
+      if (dataEditProject?.images !== data?.filter((item)=>item?.id === dataEditProject)) {
+        // Subimos las imagenes
+        const urlImages = await Promise.all(
+          dataEditProject?.images?.map(async(item)=>{
+            try {
+              if (typeof(item)==='object') {
+                const formData = new FormData();
+                formData.append("image", item?.file);
+                const url_images = await UPLOAD_IMAGE(formData);
+                if (!url_images.ok) {
+                  alert("Surgio un error al subir las imagenes");
+                  return;
+                }
+                return (await url_images.json())?.url
+              }
+            } catch (error) {
+              console.error(error);
+            }
+          })
+        );
+        // Funcion de eliminar aquellos que son del tipo objeto
+        const imagesWithoutFile = dataEditProject.images?.filter(item=>typeof(item)==='string');
+        // Filtramos valores nulos o undefined
+        const urlImagesWithoutUndefined = urlImages.filter(Boolean);
+
+        newDataToSave = {
+          ...dataEditProject,
+          images : [...imagesWithoutFile ,...urlImagesWithoutUndefined]
+        }
+      }
+      const saveChanges=await UPDATE_DATA_PROJECT(newDataToSave);
+      handleUpdateChange(newDataToSave)
       setIsOpenFormEdit(false);
       setDataEdit(null);
-   
       console.log(await saveChanges.json());
+      
     } catch (error) {
-      console.log(error);
+      console.error(error);
       
     } finally{
       handleChangeLoading();
+      await new Promise(resolve => setTimeout(resolve, 0));
     }
-    // Validar si existe algún cambio
-
   }
   return (
     <section className='w-full min-h-screen'>
@@ -124,7 +136,12 @@ export default function BoardProjects({
       data={dataEdit}
       handleChangeOpen={()=>setIsOpenFormEdit(false)}
       handleChangeImage={setDataEdit}
-      handleSaveNewData={handleSaveNewData}
+      handleSaveNewData={handleSaveUpdateProject}
+      handleChangeInput={handleChangeInput}
+      handleChangeInputPrice={handleChangeInputPrice}
+      handleChangeInputGeographiCalDetails={handleChangeInputGeographiCalDetails}
+      handleAddDataSurroundings={handleAddDataSurroundings}
+      handleDeleteDataSurroundings={handleDeleteDataSurroundings}
     />
     <div className='w-full grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 py-4'>
      
@@ -132,7 +149,6 @@ export default function BoardProjects({
         data?.map((item, idx)=>
         <div 
           key={idx} 
-          onClick={()=>handleClickEdit(item)}
           className='w-full rounded-lg bg-white p-2'>
           <div className=' relative h-48 w-full '>
             {
@@ -154,7 +170,7 @@ export default function BoardProjects({
 
           <div className='p-4'>
             <h1 className='font-bold text-naranja text-3xl'>${item?.price.dolar} - S/.{item?.price?.soles}</h1>
-            <h1 className='font-bold text-lg hover:underline cursor-pointer'>{item?.name}</h1>
+            <h1 className='font-bold text-lg hover:underline cursor-pointer' onClick={()=>handleClickEdit(item)}>{item?.name}</h1>
             <p className='p-1 rounded-lg bg-naranja text-white  w-fit my-1 text-sm '>{item?.status}</p>
             <p className='text-sm'>{item?.description}</p>
             <p className='flex flex-row items-center mt-4 text-gray-500 text-sm'><LocationOnIcon/> <span className=' ml-2'>{item?.location?.detailedLocation?.zone}</span></p>

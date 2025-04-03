@@ -6,8 +6,7 @@ import { ButtonCounter, ButtonDropdownStatus } from '../Buttons'
 import { Loader2 } from 'lucide-react'
 import { Textarea } from '../ui/textarea'
 import { BoardCarrouselImages } from '../Tables/elements'
-import { CardPropertySimple, CardShowRealAgent, CarrouselImagesCard, MapPickerCard } from '../Cards';
-import Image from 'next/image'
+import { CardPropertySimple, CardShowRealAgent, MapPickerCard } from '../Cards';
 
 import AddIcon from '@mui/icons-material/Add';
 import ShowerIcon from '@mui/icons-material/Shower';
@@ -17,7 +16,6 @@ import GarageIcon from '@mui/icons-material/Garage';
 import { Switch } from '../ui/switch'
 import { SeparatorForms } from '../Commons'
 import { useFetch } from '@/app/hooks/useHooks'
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { CREATE_PROPERTY, UPLOAD_IMAGE } from '@/lib/apiConnections'
 import { useRouter } from 'next/navigation'
 
@@ -78,14 +76,11 @@ export default function FormAddPropertie({
         unit : 'm2'
     });
 
-    const totalArea = Number(dataGeographicalDetail?.depth)*Number(dataGeographicalDetail.frontage);
     const [dataGeographicalCoveredDetail, setDataGeographicalCoveredDetail] = useState({
         frontage : "",
         depth : "",
         unit: "mt2"
     });
-
-    const totalAreaCovered = Number(dataGeographicalCoveredDetail?.depth)*Number(dataGeographicalCoveredDetail?.frontage);
     
     const [dataAntiquityTimes, setDataAntiquityTimes] = useState([
         {value : "Meses"},
@@ -214,7 +209,6 @@ export default function FormAddPropertie({
                     coveredArea : dataGeographicalCoveredDetail
                 }
             }
-            console.log(newDataToSave);
             
             const responseCreateProperty = await CREATE_PROPERTY(newDataToSave);
             if (!responseCreateProperty.ok) {

@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import SearchIcon from '@mui/icons-material/Search';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { Circle, GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const GOOGLE_MAPS_API = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -35,7 +35,7 @@ export default function MapPickerCardv2({
     }
   return (
     <div className="w-full  mx-auto mt-2">
-    <h1 className=''>Ubicación <span className='text-red-500'>*</span></h1>
+    <h1 className='font-bold '>Ubicación <span className='text-red-500'>*</span></h1>
     {/* Input de búsqueda */}
     <div className="flex items-center space-x-2 mb-4">
       <Input
@@ -60,15 +60,20 @@ export default function MapPickerCardv2({
         center={{lat, lng}}
         zoom={14}
       >
-        <Marker position={{lat, lng}} />
+        <Circle
+          center={{lat, lng}}
+          radius={500}
+          options={{
+            fillColor: "#0099FF",
+            fillOpacity: 0.3,
+            strokeColor: "#0099FF",
+            strokeOpacity: 0.5,
+            strokeWeight: 2,
+          }}
+        />
       </GoogleMap>
     </LoadScript>
 
-    {/* Información de ubicación */}
-    <div className="mt-4 p-2 bg-gray-100 rounded-md text-sm">
-      <p><strong>Latitud:</strong> {lat}</p>
-      <p><strong>Longitud:</strong> {lng}</p>
-    </div>
   </div>
   )
 }

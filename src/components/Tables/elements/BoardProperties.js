@@ -1,8 +1,6 @@
 import { CardPropertySimple, CarrouselImagesCard } from '@/components/Cards';
 import Image from 'next/image';
 import React, { useState } from 'react'
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { SeparatorForms } from '@/components/Commons';
 
 export default function BoardProperties({
     data=[],

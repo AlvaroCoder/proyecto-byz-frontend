@@ -15,7 +15,7 @@ export default function CarrouselImagesCard({ images }) {
     };
     
     return (
-        <div className="relative w-full  mx-auto overflow-hidden rounded-lg">
+        <div className="relative w-full  mx-auto overflow-hidden rounded-lg ">
         {/* Contenedor de imágenes */}
         <div className="relative w-full h-48">
           <AnimatePresence>

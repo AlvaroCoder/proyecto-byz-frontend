@@ -1,19 +1,31 @@
+'use client'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import BoardCarrouselImages from './BoardCarrouselImages';
 import { SeparatorForms } from '@/components/Commons';
 import AddIcon from '@mui/icons-material/Add';
 import {  MapPickerCardv2 } from '@/components/Cards';
-
+import TableSurroundings from '../TableSurroundings';
 
 export default function FormularioEditProject({
     data,
     handleSaveNewData,
     handleChangeLocation,
-    handleChangeImage
+    handleChangeImage,
+    handleChangeInput,
+    handleChangeInputGeographiCalDetails,
+    handleChangeInputPrice,
+    handleAddDataSurroundings,
+    handleDeleteDataSurroundings
 }) {    
+    const refInputSurroundings = useRef(null);
+    const handleAddSurrounding=()=>{
+        handleAddDataSurroundings(refInputSurroundings.current.value);
+        refInputSurroundings.current.value=null;
+    }
+    
   return (
     <div className='flex flex-col '>
         <h1 className='font-bold text-2xl'>Información del proyecto</h1>
@@ -23,6 +35,7 @@ export default function FormularioEditProject({
                 <Input
                     name="name"
                     value={data?.name}
+                    onChange={handleChangeInput}
                 />
             </div>
             <div className='w-40 ml-2'>
@@ -39,6 +52,7 @@ export default function FormularioEditProject({
         <Textarea
             name="description"
             value={data?.description}
+            onChange={handleChangeInput}
         />
         <div className='mt-4'>
             <h1>Imagenes del proyecto</h1>
@@ -58,6 +72,7 @@ export default function FormularioEditProject({
                     value={data?.geographicalDetails?.totalArea?.frontage}
                     type="number"
                     placeholder="00"
+                    onChange={handleChangeInputGeographiCalDetails}
                 />
             </div>
             <div className='flex-1 ml-2'>
@@ -67,6 +82,7 @@ export default function FormularioEditProject({
                     placeholder="00"
                     value={data?.geographicalDetails?.totalArea?.depth}
                     type="number"
+                    onChange={handleChangeInputGeographiCalDetails}
                 />
             </div>
             <div className='min-w-40 ml-4'>
@@ -84,6 +100,7 @@ export default function FormularioEditProject({
                     type="number"
                     placeholder="0.0"
                     value={data?.price?.soles}
+                    onChange={handleChangeInputPrice}
                 />
             </div>
             <div className='flex-1 ml-2'>
@@ -93,21 +110,23 @@ export default function FormularioEditProject({
                     name="dolar"
                     placeholder="0.0"
                     value={data?.price?.dolar}
+                    onChange={handleChangeInputPrice}
                 />
             </div>
         </div>
         <SeparatorForms/>
-        <h1 className='font-bold text-xl'>Inforación de la ubicación</h1>
+        <h1 className='font-bold text-xl'>Información de la ubicación</h1>
         <h1 className='mt-4'>Lugares de referencia</h1>
         <p className='text-sm'>Lugares de referencia ayudan a ubicarse mejor al cliente final</p>
         <div className='mt-4 flex flex-row items-center'>
             <Input
                 placeholder="Indicar a que lugares esta cerca ..."
-
+                ref={refInputSurroundings}
             />
             <Button
                 className="flex flex-row items-center ml-2 border border-gray-200 shadow-sm"
                 variant="ghost"
+                onClick={handleAddSurrounding}
             >
                 <AddIcon/>
                 <span>Agregar</span>
@@ -115,19 +134,16 @@ export default function FormularioEditProject({
         </div>
         {
             data?.location?.surroundings?.length > 0 &&
-            <div className='mt-4 p-2 bg-gray-100 rounded-md text-sm'>
-                <h1 className='font-bold text-lg'>Alrededores</h1>
-                <ul className='list-disc pl-4'>
-                    {
-                        data?.location?.surroundings?.map((item, idx)=><li key={idx}>{item}</li>)
-                    }
-                </ul>
-            </div>
+            <TableSurroundings
+                data={data?.location?.surroundings}
+                handleClickDeleteSurrounding={handleDeleteDataSurroundings}
+            />
         }
         <MapPickerCardv2
             handleChangeLocation={handleChangeLocation}
             lat={data?.location?.detailedLocation?.coordinates?.lat}
             lng={data?.location?.detailedLocation?.coordinates?.lng}
+            
         />
         <SeparatorForms/>
         <Button

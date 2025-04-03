@@ -1,13 +1,11 @@
 'use client'
-import { CarrouselImagesCard, MapPickerCard } from '@/components/Cards';
+import { CardProjectSimple, MapPickerCard } from '@/components/Cards';
 import { BoardCarrouselImages } from '@/components/Tables/elements';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import React, { useRef, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import { LoadingWindowProject } from '@/components/Loading';
 import { useFetch } from '@/app/hooks/useHooks';
 import { ButtonDropdownStatus } from '@/components/Buttons';
@@ -314,41 +312,9 @@ export default function Page() {
         </section>
         <section className='p-4 rounded-lg '>
           <h1 className='font-bold text-2xl'>Previsualización</h1>
-          <section className='w-full mt-4 rounded-lg bg-white p-2'>
-            <div className='relative w-full h-48 rounded-lg'>
-              {
-                dataNewProject?.images.length > 0?
-                (dataNewProject?.images.length > 1 ? 
-                  <CarrouselImagesCard
-                    images={dataNewProject?.images}
-                  />:
-                 <div className='absolute inset-0 w-full h-full rounded-lg'>
-                  <Image
-                    src={dataNewProject?.images[0]?.preview}
-                    alt='Imagen de previsualización'
-                    className='rounded-lg'
-                    objectFit='cover'
-                    layout='fill'
-                  />
-                 </div>
-                ): 
-                <div className='bg-gray-200 w-full h-full flex justify-center items-center rounded-lg'>
-                  <h1 className='text-gris'>Sube una imagen</h1>
-                </div>
-              }
-            </div>
-            <div className='p-4'>
-              <h1 className='font-bold text-naranja text-4xl'>$ {dataNewProject?.price.dolar|| "0.0"}</h1>
-              <h1 className='font-bold text-lg'>{dataNewProject?.name || "Titulo del proyecto"}</h1>
-              <p className='p-1 rounded-lg bg-naranja text-white font-bold w-fit my-1 text-sm'>{dataNewProject?.status}</p>
-
-              <p className='text-sm'>{dataNewProject?.description || "Esta descripción indica aspectos generales del proyecto, de acuerdo al precio, ubicación y área. Es importante que sea precisa."}</p>
-              <p className='flex flex-row items-center mt-4 text-gray-500 text-sm'><LocationOnIcon/> <span className=' ml-2'>{dataNewProject?.location?.detailedLocation?.zone || "Ubicacion del proyecto"}</span></p>
-              <section className='border-t-[1px] border-t-gray-200 my-4 '></section>
-              <h1>Area Total : <span className='font-bold'>{totalArea} mt2</span></h1>
-            </div>
-
-          </section>
+          <CardProjectSimple
+            data={dataNewProject}
+          />
         </section>
       </section>
     </section>
