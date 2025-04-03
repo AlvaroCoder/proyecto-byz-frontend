@@ -1,5 +1,5 @@
 'use client'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { Circle, GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import React, { useRef, useState } from 'react'
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
@@ -10,7 +10,8 @@ const GOOGLE_MAPS_API = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 export default function MapPickerCard({
     handleChangeLocation,
     lat=-12.0464,
-    lng= -77.0428
+    lng= -77.0428,
+    circle=false
 }) {
     const [location, setLocation] = useState({
         lat, 
@@ -70,7 +71,21 @@ export default function MapPickerCard({
         center={location}
         zoom={14}
       >
-        <Marker position={location} />
+        {
+          circle ?
+          <Circle
+            center={location}
+            radius={500}
+            options={{
+              fillColor: "#0099FF",
+              fillOpacity: 0.3,
+              strokeColor: "#0099FF",
+              strokeOpacity: 0.5,
+              strokeWeight: 2,
+            }}
+          />
+          :<Marker position={location} />
+        }
       </GoogleMap>
     </LoadScript>
 

@@ -7,9 +7,10 @@ import React from 'react'
 
 export default function Page() {
   const URL_GET_STATUS_PROPERTIES=process.env.NEXT_PUBLIC_GET_STATUS_PROPERTIES;
-
+  const URL_GET_DATA_PROPERTIES=process.env.NEXT_PUBLIC_GET_PROPERTIES;
   const {data : dataStatusProperties, loading : loadingDataStatusProperties, error : errorDataStatusProperties} = useFetch(URL_GET_STATUS_PROPERTIES);
-  
+  const {data : dataProperties, loading : loadingDataProperties, error : errorDataProperties} = useFetch(URL_GET_DATA_PROPERTIES);
+    
   return (
     <div className='w-full h-full overflow-y-auto p-8'>
       <section className='w-full flex flex-row justify-between'>
@@ -26,9 +27,10 @@ export default function Page() {
       </section>
       <section className='w-full min-h-24 mt-4'>
         {
-          (loadingDataStatusProperties ) ?
+          (loadingDataStatusProperties || loadingDataProperties) ?
           <p>Cargando ... </p>:
           <TableProperties
+            dataProperties={dataProperties?.projects}
             dataStatus={dataStatusProperties?.projects}
           />
         }

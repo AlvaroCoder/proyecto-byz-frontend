@@ -6,9 +6,9 @@ import UploadIcon from '@mui/icons-material/Upload';
 
 export default function BoardCarrouselImages({
     dataImages,
-    handleChangeImages
-}) {
-    
+    handleChangeImages,
+    version="CLASIC"
+}) {      
     const onDrop = useCallback((acceptedFiles) => {
         const newImages = acceptedFiles.map((file) => ({
           file,
@@ -23,9 +23,9 @@ export default function BoardCarrouselImages({
 
       const removeImage = (index) => {
         handleChangeImages((prevData)=>({
-            ...prevData,
-            images : prevData?.images.filter((_,i)=>i!==index)
-        }))
+          ...prevData,
+          images : prevData?.images.filter((_,i)=>i!==index)
+      }))
       };
 
       const { getRootProps, getInputProps } = useDropzone({

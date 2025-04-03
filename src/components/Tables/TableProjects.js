@@ -1,11 +1,14 @@
 'use client'
 import React, { useMemo, useState } from 'react'
 import { BoardEmptyProjects, BoardProjects } from './elements';
+import { LoadingWindowProject } from '../Loading';
 
 export default function TableProjects({
     dataPojects=[],
     dataStatus=[]
 }) {        
+    const [loadingDataUpdate, setLoadingDataUpdate] = useState(false);
+
     const typeProject = [{id : 0,value : "Todos"},...dataStatus]?.map((item, idx)=>{
         if (idx === 0) {
             return{
@@ -20,13 +23,15 @@ export default function TableProjects({
     });
     
     const [dataTypeProject, setDataTypeProject] = useState(typeProject);
+    
     const [dataProjectsState, setDataProjectsState] = useState(dataPojects);
     const filterDataStatus = useMemo(()=>{
         if (dataTypeProject.filter(i=>i.isSelected)[0]?.value.toUpperCase() === "TODOS") {
-            return dataPojects
+            return dataProjectsState
         }        
         return dataProjectsState.filter(item=>dataTypeProject.filter(i=>i.isSelected)[0]?.value.toUpperCase().trim() === item?.status.toUpperCase().trim())
     },[dataProjectsState, dataTypeProject]);
+    
 
     const handleChangeTypeProject=(titleProject="")=>{
         const newDataTypeProject=dataTypeProject?.map((item)=>{
@@ -43,8 +48,17 @@ export default function TableProjects({
         });
         setDataTypeProject(newDataTypeProject);
     }
+    const handleChangeImage=(data)=>{
+
+    }
+    const handleChangeLoading=()=>{
+        setLoadingDataUpdate(!loadingDataUpdate);
+    }
   return (
     <section>
+        <LoadingWindowProject
+            loading={loadingDataUpdate}
+        />
         <div className='w-full border-b-gris border-b-[.5px] flex flex-row'>
             {
                 dataTypeProject?.map((item, idx)=>
@@ -59,6 +73,7 @@ export default function TableProjects({
                 filterDataStatus.length > 0 ?
                 <BoardProjects
                     data={filterDataStatus}
+                    handleChangeLoading={handleChangeLoading}
                 /> : 
                 <BoardEmptyProjects/>
             }

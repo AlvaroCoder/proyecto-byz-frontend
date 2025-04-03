@@ -10,3 +10,5 @@ export {default as GridCardProjects} from "@/components/Cards/GridCardProjects";
 export {default as CarrouselImageCardWaitButton} from "@/components/Cards/CarrouselImageCardWaitButton";
 export {default as GoogleMapCard} from "@/components/Cards/GoogleMapCard";
 export {default as MapPickerCardv2} from "@/components/Cards/MapPickerCardv2";
+export {default as CardShowRealAgent} from "@/components/Cards/CardShowRealAgent";
+export {default as CardPropertySimple} from "@/components/Cards/CardPropertySimple";

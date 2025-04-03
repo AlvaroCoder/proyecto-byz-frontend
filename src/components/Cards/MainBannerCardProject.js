@@ -87,7 +87,7 @@ export default function MainBannerCardProject({
                 <div className='flex flex-row items-center'>
                     <div className='w-16 h-full flex justify-center items-center text-3xl'>
                         <LocationOnIcon 
-                            sx={{ width : "60%", height : "60%" }}
+                            sx={{ width : "40px", height : "40px" }}
                             className='text-3xl w-32 h-32'/>
                     </div>
                     <div className='flex-1 flex flex-col'>

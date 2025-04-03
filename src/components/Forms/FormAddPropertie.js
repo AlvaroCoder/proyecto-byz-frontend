@@ -1,12 +1,12 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { ButtonCounter, ButtonDropdownStatus } from '../Buttons'
 import { Loader2 } from 'lucide-react'
 import { Textarea } from '../ui/textarea'
 import { BoardCarrouselImages } from '../Tables/elements'
-import { CarrouselImagesCard, MapPickerCard } from '../Cards';
+import { CardPropertySimple, CardShowRealAgent, CarrouselImagesCard, MapPickerCard } from '../Cards';
 import Image from 'next/image'
 
 import AddIcon from '@mui/icons-material/Add';
@@ -18,10 +18,15 @@ import { Switch } from '../ui/switch'
 import { SeparatorForms } from '../Commons'
 import { useFetch } from '@/app/hooks/useHooks'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { CREATE_PROPERTY, UPLOAD_IMAGE } from '@/lib/apiConnections'
+import { useRouter } from 'next/navigation'
 
 export default function FormAddPropertie({
-    handleChangeStatusPropertie,
+    dataJSON,
+    handleChangeLoading
 }) {
+    const router = useRouter();
+    const refInputNearPlaces = useRef(null);
     const URL_STATUS=process.env.NEXT_PUBLIC_GET_STATUS_PROJECTS;
     const {data : dataStatusProject, error, loading : loadingDataStatusProject} = useFetch(URL_STATUS);
 
@@ -36,16 +41,19 @@ export default function FormAddPropertie({
           totalArea : {
             frontage : "",
             depth : "",
-            units : "mt2"
+            unit : "mt2"
           },
           coveredArea :  {
             frontage : "",
             depth : "",
-            units : "mt2"
+            unit : "mt2"
           }
         },
         features : {
-          antiquity : null,
+          antiquity : {
+            quantity : "",
+            unit : "Meses"
+          },
           floors : 0,
           rooms : 0,
           bathrooms : 0,
@@ -62,39 +70,47 @@ export default function FormAddPropertie({
         reservedTime : (new Date()).toISOString(),
         creationTime : (new Date()).toISOString()
     });
+    
 
-    const handleChangeSaveNewProperty=(evt)=>{
-
-    }
     const [dataGeographicalDetail, setDataGeographicalDetail] = useState({
         frontage : "",
         depth : '',
-        units : 'm2'
+        unit : 'm2'
     });
 
     const totalArea = Number(dataGeographicalDetail?.depth)*Number(dataGeographicalDetail.frontage);
-
     const [dataGeographicalCoveredDetail, setDataGeographicalCoveredDetail] = useState({
         frontage : "",
         depth : "",
-        units : "mt2"
+        unit: "mt2"
     });
 
     const totalAreaCovered = Number(dataGeographicalCoveredDetail?.depth)*Number(dataGeographicalCoveredDetail?.frontage);
+    
     const [dataAntiquityTimes, setDataAntiquityTimes] = useState([
         {value : "Meses"},
         {value : "Años"}
-    ])
+    ]);
+
+    // Funcion de cambiar el valor del input de GeographicalDetail
     const handleChangeGeographicalDetail=(evt)=>{
         const target = evt.target;
         setDataGeographicalDetail({
             ...dataGeographicalDetail,
-            [target.name] : target.value
+            [target.name] : Number(target.value)
         });
     }
-    const handleChangeGrographicalDetailCovered=(evt)=>{
 
+    // Funcion de cambiar el valor del input de DetailCovered
+    const handleChangeGrographicalDetailCovered=(evt)=>{
+        const target = evt.target;
+        setDataGeographicalCoveredDetail({
+            ...dataGeographicalCoveredDetail,
+            [target.name] : Number(target.value)
+        });
     }
+
+    // Funcion de cambiar el valor del input
     const handleChangeInput=(evt)=>{
         const target = evt.target;
         setDataNewProperties({
@@ -102,6 +118,8 @@ export default function FormAddPropertie({
             [target.name] : target.value
         })
     }
+
+    // Funcion de cambiar el valor del input de precio
     const handleChangePrice=(evt)=>{
         const target = evt.target;
         setDataNewProperties(prev=>({
@@ -112,9 +130,8 @@ export default function FormAddPropertie({
             }
         }))
     }
-    const hanldeChangeUploadImage=()=>{
-
-    }
+    
+    // Funcion para cambiar los valores del MAPA insertado
     const handleChangeMapLocation=(data)=>{
         setDataNewProperties(prev=>({
             ...prev,
@@ -123,6 +140,99 @@ export default function FormAddPropertie({
                 detailedLocation : data
             }
         }))
+    }
+
+    // Funcion de cambiar la antiguedad de la propiedad
+    const handleChangeAntiquity=(data)=>{   
+        setDataNewProperties((prev)=>({
+            ...dataNewProperties,
+            features : {
+                ...prev.features,
+                antiquity: {
+                    ...prev.features.antiquity,
+                    unit : data
+                }
+            }
+        }))
+    }   
+    // Funcion de cambiar el estados de la propiedad
+    const handleChangeStatusPropertie=(data)=>{
+        setDataNewProperties({
+            ...dataNewProperties,
+            status : data
+        })
+    }
+    
+    // Funcion de agregar los alrededores a la lista de alrededores
+    const handleClickAddSurrounding=()=>{
+        setDataNewProperties(prev=>({
+            ...dataNewProperties,
+            location : {
+                ...prev.location,
+                surroundings : [...prev.location.surroundings, refInputNearPlaces?.current?.value]
+            }
+        }))
+    }
+
+    // Funcion de guardar los datos de la nueva propiedad
+    const handleChangeSaveNewProperty=async(evt)=>{
+
+        if (dataNewProperties?.images?.length <= 0) {
+            alert("Debes subir una imagen");
+            return;
+        }    
+        try {
+            handleChangeLoading(true);
+           
+            const urlsImagesProperties = await Promise.all(
+                dataNewProperties?.images?.map(async(item)=>{
+                    try {
+                        const formData = new FormData();
+                        formData.append("image", item?.file);
+
+                        const url_images = await UPLOAD_IMAGE(formData);
+                        if (!url_images.ok) {
+                            console.log(await url_images.json());
+                            
+                            alert("Surgio un problema al subir una imagen");
+                            return
+                        }
+                        return (await url_images.json())?.url;
+                    } catch (error) {
+                        console.error(error);
+                        
+                    }
+                })
+            )
+
+            const newDataToSave ={
+                ...dataNewProperties,
+                id_user : dataJSON?.id,
+                images : urlsImagesProperties,
+                geographicalDetails : {
+                    totalArea : dataGeographicalDetail,
+                    coveredArea : dataGeographicalCoveredDetail
+                }
+            }
+            console.log(newDataToSave);
+            
+            const responseCreateProperty = await CREATE_PROPERTY(newDataToSave);
+            if (!responseCreateProperty.ok) {
+                alert("Hubo un problema al guardar los datos");
+                console.log(await responseCreateProperty.json());
+                
+                handleChangeLoading(false);
+                return;
+            }
+            console.log(await responseCreateProperty.json());
+            
+            router.push("/admin/dashboard/propiedades");
+
+        } catch (error) {
+            
+        } finally {
+            handleChangeLoading(false)
+        }
     }
   return (
     <section className='w-full grid grid-cols-1 lg:grid-cols-3 gap-8'>
@@ -172,7 +282,7 @@ export default function FormAddPropertie({
                     <h1>Imagenes de la Propiedad <span className='text-red-500'>*</span></h1>
                     <BoardCarrouselImages
                         dataImages={dataNewProperties}
-                        handleChangeImages={hanldeChangeUploadImage}
+                        handleChangeImages={setDataNewProperties}
                     />
                 </div>
                 <SeparatorForms/>
@@ -233,11 +343,49 @@ export default function FormAddPropertie({
                     <div className=''>
                         <div className='flex flex-1 items-center justify-between'>
                             <h1><RoomServiceIcon/> Cuartos</h1>
-                            <ButtonCounter/>
+                            <ButtonCounter
+                                handleChangeIncreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features : {
+                                            ...prev.features,
+                                            rooms : prev.features.rooms + 1
+                                        }
+                                    }))
+                                }}
+                                handleChangeDecreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features : {
+                                            ...prev.features,
+                                            rooms : prev.features.rooms - 1
+                                        }
+                                    }))
+                                }}
+                            />
                         </div>   
                         <div className='flex flex-1 items-center justify-between mt-4'>
                             <h1><ApartmentIcon/> Pisos</h1>
-                            <ButtonCounter/>
+                            <ButtonCounter
+                                handleChangeIncreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features : {
+                                            ...prev.features,
+                                            floors : prev.features.floors + 1
+                                        }
+                                    }))
+                                }}
+                                handleChangeDecreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features : {
+                                            ...prev.features,
+                                            floors : prev.features.floors - 1
+                                        }
+                                    }));
+                                }}
+                            />
                         </div> 
                         <section className='mt-4'>
                         <h1>Antiguedad</h1>
@@ -245,11 +393,23 @@ export default function FormAddPropertie({
                             <Input
                                 type="number"
                                 placeholder="Ingresa la cantidad"
+                                value={dataNewProperties?.features?.antiquity.quantity}
+                                onChange={(evt)=>setDataNewProperties((prev)=>({
+                                    ...dataNewProperties,
+                                    features : {
+                                        ...prev.features,
+                                        antiquity : {
+                                            ...prev.features.antiquity,
+                                            quantity : evt.target.value 
+                                        }
+                                    }
+                                }))}
                             />
                             <ButtonDropdownStatus
-                                initialData='Meses'
+                                initialData={dataNewProperties?.features?.antiquity.unit}
                                 data={dataAntiquityTimes}
                                 className='w-32 ml-2'
+                                handleChangeStatus={handleChangeAntiquity}
                             />
                         </div>
                         </section>
@@ -257,11 +417,49 @@ export default function FormAddPropertie({
                     <div>
                         <div className='flex flex-1 items-center justify-between'>
                             <h1><ShowerIcon/> Baños</h1>
-                            <ButtonCounter/>
+                            <ButtonCounter
+                                handleChangeIncreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features  : {
+                                            ...prev.features,
+                                            bathrooms : prev.features.bathrooms + 1
+                                        }
+                                    }))
+                                }}
+                                handleChangeDecreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features : {
+                                            ...prev.features,
+                                            bathrooms : prev.features.bathrooms - 1
+                                        }
+                                    }))
+                                }}
+                            />
                         </div>
                         <div className='flex flex-1 items-center justify-between mt-4'>
                             <h1><GarageIcon/> Garage</h1>
-                            <ButtonCounter/>
+                            <ButtonCounter
+                                handleChangeIncreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features : {
+                                            ...prev.features,
+                                            garage : prev.features.garage + 1
+                                        }
+                                    }))
+                                }}
+                                handleChangeDecreaseElement={()=>{
+                                    setDataNewProperties((prev)=>({
+                                        ...dataNewProperties,
+                                        features : {
+                                            ...prev.features,
+                                            garage : prev.features.garage - 1
+                                        }
+                                    }))
+                                }}
+                            />
                         </div>
                     </div>
                 </section>
@@ -270,11 +468,17 @@ export default function FormAddPropertie({
                 <div className='w-full grid grid-cols-2 gap-4 mt-4'>
                     <div className='flex flex-row justify-between'>
                         <h1>Servicio de agua</h1>
-                        <Switch/>
+                        <Switch
+                            checked={dataNewProperties.features.waterService}
+                            onCheckedChange={(checked)=>setDataNewProperties((prev)=>({...dataNewProperties, features : {...prev.features, waterService : checked}}))}
+                        />
                     </div>
                     <div className='flex flex-row justify-between'>
                         <h1>Servicio de luz</h1>
-                        <Switch/>
+                        <Switch
+                            checked={dataNewProperties.features.lightService}
+                            onCheckedChange={(checked)=>setDataNewProperties((prev)=>({...dataNewProperties, features : {...prev.features, lightService : checked}}))}
+                        />
                     </div>
                 </div>
                 <SeparatorForms/>
@@ -308,16 +512,31 @@ export default function FormAddPropertie({
                 <div className='mt-4 flex flex-row items-center'>
                     <Input
                         placeholder="Indica a que lugares esta cerca ... "
+                        ref={refInputNearPlaces}
+
                     />
                     <Button
                         className="flex flex-row items-center ml-2"
                         variant="ghost"
+                        onClick={handleClickAddSurrounding}
                     >
                         <AddIcon/>
                         <span className=''>Agregar</span>
                     </Button>
                 </div>
+                {
+                    dataNewProperties?.location?.surroundings?.length > 0 &&
+                    <div className='mt-4 p-2 bg-gray-100 rounded-sm text-sm'>
+                        <h1 className='font-bold text-lg'>Alrededores</h1>
+                        <ul className='list-disc pl-4'>
+                            {
+                                dataNewProperties.location.surroundings.map((item, idx)=><li key={idx}>{item}</li>)
+                            }
+                        </ul>
+                    </div>
+                }
                 <MapPickerCard
+                    circle={true}
                     handleChangeLocation={handleChangeMapLocation}
                 />
                 <SeparatorForms/>
@@ -332,39 +551,13 @@ export default function FormAddPropertie({
         </section>
         <section className='p-4 rounded-lg'>
             <h1 className='font-bold text-2xl'>Previsualización</h1>
+            <CardPropertySimple
+                data={dataNewProperties}
+            />
             <section className='w-full mt-4 rounded-lg bg-white p-2'>
-                <div className='relative w-full h-48 rounded-lg'>
-                    {
-                        dataNewProperties?.images?.length > 0?
-                        (
-                            dataNewProperties?.images?.length > 1 ?
-                            <CarrouselImagesCard
-                                images={dataNewProperties?.images}
-                                
-                            />:
-                            <div className='absolute inset-0 w-full h-full rounded-lg'>
-                                <Image
-                                    src={dataNewProperties?.images[0]?.preview}
-                                    alt='Imagen de previsualización'
-                                    className='rounded-lg'
-                                    objectFit='cover'
-                                    layout='fill'
-                                />
-                            </div>
-                        ):
-                        <div className='bg-gray-200 w-full h-full flex justify-center items-center rounded-lg'>
-                            <h1 className='text-gris'>Sube una imagen</h1>
-                        </div>
-                    }
-                </div>
-                <div className='p-4'>
-                    <h1 className='font-bold text-naranja text-4xl'>$ {dataNewProperties.price.dolar || "0.0"}</h1>
-                    <h1 className='font-bold text-lg'>{dataNewProperties?.name || "Titulo del proyecto"}</h1>
-                    <p className='p-1 rounded-lg bg-naranja text-white font-bold w-fit my-1 text-sm'>{dataNewProperties?.status}</p>
-                    <p className='text-sm'>{dataNewProperties?.description || "La descripción debe indicar aspectos generales del proyecto. Información del precio, ubicación y área. Todo ello debe ser preciso."}</p>
-                    <p className='flex flex-row items-center mt-4 text-gray-500 text-sm'><LocationOnIcon/> <span className='ml-2'>{dataNewProperties?.location?.detailedLocation?.zone || "Ubicación de la propiedad"}</span></p>
-                    <h1>Area Total : <span>{}</span></h1>
-                </div>
+                <CardShowRealAgent
+                    data={dataJSON}
+                />
             </section>
         </section>
     </section>

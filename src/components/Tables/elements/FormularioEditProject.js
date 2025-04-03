@@ -11,9 +11,9 @@ import {  MapPickerCardv2 } from '@/components/Cards';
 export default function FormularioEditProject({
     data,
     handleSaveNewData,
-    handleChangeLocation
-}) {
-
+    handleChangeLocation,
+    handleChangeImage
+}) {    
   return (
     <div className='flex flex-col '>
         <h1 className='font-bold text-2xl'>Información del proyecto</h1>
@@ -44,7 +44,8 @@ export default function FormularioEditProject({
             <h1>Imagenes del proyecto</h1>
             <BoardCarrouselImages
                 dataImages={data || []}
-
+                handleChangeImages={handleChangeImage}
+                version='v2'
             />
         </div>
         <SeparatorForms/>
@@ -131,7 +132,7 @@ export default function FormularioEditProject({
         <SeparatorForms/>
         <Button
             variant="ghost"
-            onClick={handleSaveNewData}
+            onClick={()=>handleSaveNewData(data)}
             className="bg-orange-400 hover:bg-orange-300 py-4 text-white hover:text-gris w-full"
         >
             <p>Guardar Cambios</p>

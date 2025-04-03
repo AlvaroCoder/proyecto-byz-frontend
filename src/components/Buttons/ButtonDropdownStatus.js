@@ -32,9 +32,7 @@ export default function ButtonDialogStatus({
                     key={idx}
                     className="capitalize"
                     onCheckedChange={()=>{
-                        const jsonSelected = data?.filter(elem=>elem.value.toUpperCase() === item.value.toUpperCase())[0]
-                        console.log(jsonSelected);
-                        
+                        const jsonSelected = data?.filter(elem=>elem.value.toUpperCase() === item.value.toUpperCase())[0];                        
                         handleChangeStatus(jsonSelected?.value);
                     
                     }}

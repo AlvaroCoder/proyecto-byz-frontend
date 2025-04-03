@@ -6,6 +6,8 @@ export default function TableProperties({
     dataProperties=[],
     dataStatus=[]
 }) {
+    console.log(dataProperties);
+    
     const typeProperties = [{id : 0, value : "Todos"},...dataStatus]?.map((item, idx)=>{
         if (idx === 0) {
             return {

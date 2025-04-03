@@ -1,0 +1,1 @@
+export {default as FormAddUserRealStateAgent} from "@/components/Forms/Elements/FormAddUserRealAgent";
