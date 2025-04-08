@@ -5,10 +5,9 @@ import { LoadingWindowProject } from '../Loading';
 
 export default function TableProjects({
     dataPojects=[],
-    dataStatus=[]
-}) {        
-    console.log(dataPojects);
-    
+    dataStatus=[],
+
+}) {            
     const [loadingDataUpdate, setLoadingDataUpdate] = useState(false);
     const typeProject = [{id : 0,value : "Todos"},...dataStatus]?.map((item, idx)=>{
         if (idx === 0) {
@@ -22,17 +21,17 @@ export default function TableProjects({
             isSelected : false
         }
     });
-    
+
     const [dataTypeProject, setDataTypeProject] = useState(typeProject);
-    
     const [dataProjectsState, setDataProjectsState] = useState(dataPojects);
+
     const filterDataStatus = useMemo(()=>{
         if (dataTypeProject.filter(i=>i.isSelected)[0]?.value.toUpperCase() === "TODOS") {
             return dataProjectsState
         }        
         return dataProjectsState.filter(item=>dataTypeProject.filter(i=>i.isSelected)[0]?.value.toUpperCase().trim() === item?.status.toUpperCase().trim())
     },[dataProjectsState, dataTypeProject]);
-    
+
     // Cambio del estado del proyecto
     const handleChangeTypeProject=(titleProject="")=>{
         const newDataTypeProject=dataTypeProject?.map((item)=>{
@@ -49,9 +48,11 @@ export default function TableProjects({
         });
         setDataTypeProject(newDataTypeProject);
     }
+
     const handleChangeLoading=()=>{
         setLoadingDataUpdate((prevLoading)=>!prevLoading);
     }
+
     const handleUpdateChange=(dataUpdated)=>{
         const newDataProjectState = dataProjectsState.map((item)=>{
             if (item?.id === dataUpdated?.id) {
@@ -61,6 +62,7 @@ export default function TableProjects({
         });
         setDataProjectsState(newDataProjectState)
     }
+    
   return (
     <section>
         <LoadingWindowProject
@@ -80,6 +82,7 @@ export default function TableProjects({
                 filterDataStatus.length > 0 ?
                 <BoardProjects
                     data={filterDataStatus}
+                    
                     handleChangeLoading={handleChangeLoading}
                     handleUpdateChange={handleUpdateChange}
                 /> : 

@@ -13,7 +13,8 @@ export default function DialogProjectEdit({
     handleChangeInputGeographiCalDetails,
     handleChangeInputPrice,
     handleAddDataSurroundings,
-    handleDeleteDataSurroundings
+    handleDeleteDataSurroundings,
+    handleChangeLocation
 }) {
     
   return (
@@ -45,6 +46,7 @@ export default function DialogProjectEdit({
                 handleChangeInput={handleChangeInput}
                 handleChangeInputGeographiCalDetails={handleChangeInputGeographiCalDetails}
                 data={data}
+                handleChangeLocation={handleChangeLocation}
                 handleChangeInputPrice={handleChangeInputPrice}
                 handleAddDataSurroundings={handleAddDataSurroundings}
                 handleDeleteDataSurroundings={handleDeleteDataSurroundings}

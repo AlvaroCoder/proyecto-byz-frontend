@@ -11,7 +11,7 @@ import { DialogProjectEdit } from '@/components/Dialogs';
 export default function BoardProjects({
   data=[],
   handleChangeLoading,
-  handleUpdateChange
+  handleUpdateChange,
 }) {
   
   const [isOpenFormEdit, setIsOpenFormEdit] = useState(false);
@@ -22,6 +22,7 @@ export default function BoardProjects({
     setDataEdit(item)    
     setIsOpenFormEdit(true);
   }
+  
   // Funcion de realizar cambios en los inputs
   const handleChangeInput=(evt)=>{
     const target = evt.target;
@@ -30,6 +31,7 @@ export default function BoardProjects({
       [target.name] : target.value
     })
   }
+
   // Funcion de realizar cambios en la propiedad de grographicalDetails
   const handleChangeInputGeographiCalDetails=(evt)=>{
     const target = evt.target;
@@ -43,6 +45,7 @@ export default function BoardProjects({
       }
     }))
   }
+
   // Funcion de realizar cambios en la parte de informacion del precio
   const handleChangeInputPrice=(evt)=>{
     const target = evt.target;
@@ -54,6 +57,7 @@ export default function BoardProjects({
       }
     }));
   }
+
   // Funcion de agregar lugares de alrededor
   const handleAddDataSurroundings=(data)=>{
     setDataEdit((prev)=>({
@@ -67,6 +71,7 @@ export default function BoardProjects({
       }
     }))
   }
+
   // Funcion de quitar lugares de alrededor
   const handleDeleteDataSurroundings=(idx)=>{
     
@@ -79,9 +84,9 @@ export default function BoardProjects({
       }
     }))
   }
+
   // Funcion de actualizar proyecto
   const handleSaveUpdateProject=async(dataEditProject)=>{
-    console.log(dataEditProject);
     try {
       handleChangeLoading();
       let newDataToSave =dataEditProject;
@@ -118,9 +123,7 @@ export default function BoardProjects({
       const saveChanges=await UPDATE_DATA_PROJECT(newDataToSave);
       handleUpdateChange(newDataToSave)
       setIsOpenFormEdit(false);
-      setDataEdit(null);
-      console.log(await saveChanges.json());
-      
+      setDataEdit(null);      
     } catch (error) {
       console.error(error);
       
@@ -128,6 +131,15 @@ export default function BoardProjects({
       handleChangeLoading();
       await new Promise(resolve => setTimeout(resolve, 0));
     }
+  }
+  const handleChangeLocation=(data)=>{
+    setDataEdit(prev=>({
+      ...prev,
+      location : {
+        ...prev.location,
+        detailedLocation : data
+      }
+    }))
   }
   return (
     <section className='w-full min-h-screen'>
@@ -138,6 +150,7 @@ export default function BoardProjects({
       handleChangeImage={setDataEdit}
       handleSaveNewData={handleSaveUpdateProject}
       handleChangeInput={handleChangeInput}
+      handleChangeLocation={handleChangeLocation}
       handleChangeInputPrice={handleChangeInputPrice}
       handleChangeInputGeographiCalDetails={handleChangeInputGeographiCalDetails}
       handleAddDataSurroundings={handleAddDataSurroundings}
