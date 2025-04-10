@@ -20,6 +20,8 @@ export default function FormularioEditProperty({
     handleAddDataSurroundings,
     handleDeleteDataSurroundings
 }) {
+    console.log(data);
+    
     const refInputSurroundings = useRef(null);
     const handleAddSurrounding=()=>{
         handleAddSurrounding(refInputSurroundings.current.value);

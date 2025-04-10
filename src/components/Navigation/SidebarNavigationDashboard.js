@@ -33,12 +33,18 @@ export default function SidebarNavigationDashboard() {
       selected : false
     },
     {
+      routeName : "Usuarios",
+      routePath : "/admin/dashboard/users",
+      routeIcon : PersonIcon,
+      selected : false
+    },
+    {
         routeName : "Servicios",
         routePath : "/admin/dashboard/services",
         routeIcon : RoofingIcon,
         selected : false
     },
-
+ 
 ];  
 
 

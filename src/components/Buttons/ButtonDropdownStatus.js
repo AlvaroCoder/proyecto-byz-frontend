@@ -33,12 +33,12 @@ export default function ButtonDialogStatus({
                     className="capitalize"
                     onCheckedChange={()=>{
                         const jsonSelected = data?.filter(elem=>elem.value.toUpperCase() === item.value.toUpperCase())[0];                        
-                        handleChangeStatus(jsonSelected?.value);
+                        handleChangeStatus(jsonSelected?.value, jsonSelected?.id);
                     
                     }}
                     checked={item.value.toUpperCase() === initialData.toUpperCase()}
                     >
-                        {item?.value}
+                        <p className='w-full max-w-full'>{item?.value}</p>
                 </DropdownMenuCheckboxItem>
                 }
                 return null;

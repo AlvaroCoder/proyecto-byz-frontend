@@ -94,6 +94,16 @@ export default function FormAddPropertie({
             ...dataGeographicalDetail,
             [target.name] : Number(target.value)
         });
+        setDataNewProperties((prev)=>({
+            ...dataNewProperties,
+            geographicalDetails:{
+                ...prev.geographicalDetails,
+                totalArea : {
+                    ...prev.geographicalDetails.totalArea,
+                    [target.name] : target.value
+                }
+            }
+        }))
     }
 
     // Funcion de cambiar el valor del input de DetailCovered
@@ -103,6 +113,16 @@ export default function FormAddPropertie({
             ...dataGeographicalCoveredDetail,
             [target.name] : Number(target.value)
         });
+        setDataNewProperties((prev)=>({
+            ...dataNewProperties,
+            geographicalDetails : {
+                ...prev.geographicalDetails,
+                coveredArea : {
+                    ...prev.geographicalDetails.coveredArea,
+                    [target.name] : target.value
+                }
+            }
+        }))
     }
 
     // Funcion de cambiar el valor del input

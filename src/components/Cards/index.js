@@ -13,3 +13,4 @@ export {default as MapPickerCardv2} from "@/components/Cards/MapPickerCardv2";
 export {default as CardShowRealAgent} from "@/components/Cards/CardShowRealAgent";
 export {default as CardPropertySimple} from "@/components/Cards/CardPropertySimple";
 export {default as CardProjectSimple} from "@/components/Cards/CardProjectSimple";
+export {default as CardUsuario} from "@/components/Cards/CardUsuario";

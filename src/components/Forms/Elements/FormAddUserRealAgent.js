@@ -61,7 +61,6 @@ export default function FormAddUserRealAgent({
       else {
         setJsonUser({...jsonUser, first_name : dataUser.value.nombre, last_name : dataUser.value.apellido})
       }
-      console.log(dataUser);
       
     }
     const handleChangeImage=(evt)=>{

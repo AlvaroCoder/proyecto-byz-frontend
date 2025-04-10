@@ -112,15 +112,15 @@ export default function BoardProperties({
         handleAddDataSurroundings={handleAddDataSurroundings}
         handleDeleteDataSurroundings={handleDeleteDataSurroundings}
       />
-      <div className='w-full grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 py-4'>
+      <div className='w-full grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 py-4'>
         {
           data?.map((item, idx)=>
           <div 
             key={idx}
-            onClick={()=>handleClickEdit(item)}
           >
             <CardPropertySimple
               data={item}
+              handleClickEdit={handleClickEdit}
             />
           </div>
           )

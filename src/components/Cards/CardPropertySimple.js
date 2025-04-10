@@ -9,8 +9,11 @@ import GarageIcon from '@mui/icons-material/Garage';
 import { SeparatorForms } from '../Commons';
 
 export default function CardPropertySimple({
-    data={}
+    data={},
+    handleClickEdit
 }) {
+    console.log(data);
+    
   return (
     <div
         className='w-full rounded-lg bg-white p-2'
@@ -42,7 +45,7 @@ export default function CardPropertySimple({
         </div>
         <div className='p-4'>
             <h1 className='font-bold text-naranja text-3xl'>${data?.price?.dolar || "0.0"} - S/.{data?.price?.soles || "0.0"}</h1>
-            <h1 className='font-bold text-lg hover:underline cursor-pointer'>{data?.name || "Titulo del proyecto"}</h1>
+            <h1 className='font-bold text-lg hover:underline cursor-pointer' onClick={()=>handleClickEdit(data)}>{data?.name || "Titulo del proyecto"}</h1>
             <p className='p-1 rounded-lg bg-naranja text-white w-fit my-1 text-sm'>{data?.status}</p>
             <p className='text-sm'>{data?.description || "La descripción debe indicar aspectos generales del proyecto. Información del precio, ubicación y área. Todo ello debe ser preciso."}</p>
             <p className='flex flex-row items-center mt-4 text-gray-500 text-sm'><LocationOnIcon/> <span className='ml-2'>{data?.location?.detailedLocation?.zone || "Ubicacion de la propiedad"}</span></p>
@@ -56,8 +59,8 @@ export default function CardPropertySimple({
                 <h1><span><GarageIcon/></span> Garage : {data?.features?.garage}</h1>
             </section>
             <SeparatorForms/>
-            <h1>Area Total : <span className='font-bold'>{Number(data?.geographicalDetails?.totalArea?.depth)*Number(data?.geographicalDetails?.totalArea?.frontage)} mt2</span></h1>
-            <h1>Area cubierta : <span className='font-bold'>{Number(data?.geographicalDetails?.coveredArea?.depth)*Number(data?.geographicalDetails?.coveredArea?.frontage)} mt2</span></h1>
+            <h1>Area Total : <span className='font-bold'>{Number(data?.geographicalDetails?.totalArea?.depth) * Number(data?.geographicalDetails?.totalArea?.frontage)} mt2</span></h1>
+            <h1>Area cubierta : <span className='font-bold'>{Number(data?.geographicalDetails?.coveredArea?.depth) * Number(data?.geographicalDetails?.coveredArea?.frontage)} mt2</span></h1>
         </div>
     </div>
   )
