@@ -94,7 +94,9 @@ export default function Home() {
         </div>
         <div className="w-full flex flex-col items-center justify-center z-10">
           <h1 className="font-bold text-4xl">Tu espacio, tu historia, nuestra especialidad</h1>
-          <SearchPropertyBanner/>
+          <div className="max-w-4xl w-full">
+            <SearchPropertyBanner/>
+          </div>
         </div>
       </section>
       <section className="">

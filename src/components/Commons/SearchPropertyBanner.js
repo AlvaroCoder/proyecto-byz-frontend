@@ -54,7 +54,7 @@ export default function SearchPropertyBanner() {
         setStateVariantProperty(newDataPropertie);
     }
   return (
-    <div className='mt-8 max-w-4xl w-full h-24 rounded-lg flex flex-col justify-center items-center'>
+    <div className='mt-8  w-full h-24 rounded-lg flex flex-col justify-center items-center'>
         <div className='w-full'>
             <ul className='w-fit flex flex-row bg-white rounded-t-lg px-2 '>
                 {

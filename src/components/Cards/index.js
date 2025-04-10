@@ -14,3 +14,4 @@ export {default as CardShowRealAgent} from "@/components/Cards/CardShowRealAgent
 export {default as CardPropertySimple} from "@/components/Cards/CardPropertySimple";
 export {default as CardProjectSimple} from "@/components/Cards/CardProjectSimple";
 export {default as CardUsuario} from "@/components/Cards/CardUsuario";
+export {default as CardPropertyHoriz} from "@/components/Cards/CardPropertyHoriz";

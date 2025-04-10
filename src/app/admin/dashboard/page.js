@@ -16,10 +16,6 @@ export default function Page() {
   const {data : dataProperties, loading : loadingDataProperties, error : errorDataProperties} = useFetch(URL_GET_PROPERTIES);
   const {data : dataClientes, loading : loadingDataClientes, error : errorDataClientes} = useFetch(URL_GET_CLIENTES);
   
-  console.log(dataUsers);
-  console.log(dataProjects);
-  console.log(dataProperties);
-  console.log(dataClientes);
   const dataPropiedadesSeparada = [
     dataProperties?.projects?.filter(item=>item?.status?.toUpperCase() === "VENTA DISPONIBLE")?.length,
     dataProperties?.projects?.filter(item=>item?.status?.toUpperCase() === "ALQUILER DISPONIBLE")?.length,

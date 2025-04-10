@@ -32,10 +32,7 @@ export default function TopBarNavigationClient() {
             {subLinkName : "PreVenta", subLinkRoute : "/proyectos"},
             {subLinkName : "Venta", subLinkRoute : "/proyectos"}
         ], isSelected : false},
-        {routeName : "Inmmuebles", routeLink : "/corretaje", subLinks : [
-            {subLinkName : "Venta", subLinkRoute : "/corretaje"},
-            {subLinkName : "Alquiler", subLinkRoute : "/corretaje"}
-        ], isSelected : false},
+        {routeName : "Buscar inmuebles", routeLink : "/corretaje", subLinks : [], isSelected : false},
     ].map(item=>{
         if (item?.routeLink == pathname) {
             return {

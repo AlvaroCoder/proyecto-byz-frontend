@@ -3,8 +3,9 @@ import { motion,AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState } from 'react'
 import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
 
-export default function CarrouselImagesCard({ images }) {
+export default function CarrouselImagesCard({ images, className }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const prevImage = () => {
         setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -17,7 +18,7 @@ export default function CarrouselImagesCard({ images }) {
     return (
         <div className="relative w-full  mx-auto overflow-hidden rounded-lg ">
         {/* Contenedor de imágenes */}
-        <div className="relative w-full h-48">
+        <div className={cn("relative w-full h-48", className)}>
           <AnimatePresence>
             <motion.img
               key={typeof(images[currentIndex]) === "string" ? images[currentIndex] : images[currentIndex]?.preview}

@@ -11,7 +11,7 @@ export default function CardProjectSimple({
     <section className='w-full mt-4 rounded-lg bg-white p-2'>
         <div className='relative w-full h-48 rounded-lg'>
             {
-                data?.iamges?.length > 0 ?
+                data?.images?.length > 0 ?
                 (
                     data?.images?.length > 1 ?
                     <CarrouselImagesCard
