@@ -1,0 +1,1 @@
+export {dafault as PieChartProperties} from "@/components/Graphs/PieChartProperties";
