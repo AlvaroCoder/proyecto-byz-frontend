@@ -65,20 +65,32 @@ export function useFetch(URL="") {
     },[]);
     return {loading, error, data};
 }
-export function useFetchApi(URL="") {
+export function useFetchApi(URL="", options={
+    method : "GET",
+    mode:"cors"
+}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
     useEffect(()=>{
         async function fetchData() {
             try {
-                const session = await getSession();
-                const response = await fetch(URL,{
-                    method : 'GET',
-                })
+                const response = await fetch(URL, options);
+                if (!response.ok) {
+                    const jsonResponse = await response.json();                    
+                    setError(jsonResponse?.detail);
+                    return;
+                }
+                const jsonResponse = await response.json();          
+                      
+                setData(jsonResponse);
             } catch (err) {
-                
+                setError(err);
+            }finally{
+                setLoading(false);
             }
         }
+        fetchData()
     },[]);
+    return {loading, error, data};
 }

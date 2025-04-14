@@ -11,8 +11,10 @@ import GarageIcon from '@mui/icons-material/Garage';
 import Crop54Icon from '@mui/icons-material/Crop54';
 import { useFetch } from '@/app/hooks/useHooks';
 import { Skeleton } from '../ui/skeleton';
+import Link from 'next/link';
 
 export default function CardPropertyHoriz({
+    id,
     name,
     description,
     location, 
@@ -56,7 +58,13 @@ export default function CardPropertyHoriz({
         <section className='col-span-2 flex flex-row gap-2 relative'>
             <div className='flex-1'>
                 <h1 className='text-naranja text-2xl'>S/.{price?.soles} - ${price?.dolar}</h1>
-                <h1 className='font-bold text-xl cursor-pointer hover:underline'>{name}</h1>
+                <Link
+                    href={{
+                        pathname : `/corretaje/${id}`
+                    }}
+                >
+                    <h1 className='font-bold text-xl cursor-pointer hover:underline'>{name}</h1>
+                </Link>
                 <p className='p-1 bg-naranja text-sm text-white w-fit my-2 rounded-lg'>{status}</p>
                 <p>{description}</p>
                 <p className='text-gray-500 text-sm flex flex-row items-center'><LocationOnIcon/><span className='ml-2 capitalize'> {location?.detailedLocation?.zone}</span></p>

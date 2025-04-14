@@ -10,6 +10,7 @@ import { FormContactPage } from "@/components/Forms";
 import { IMAGES_MAIN_SERVICES } from "@/assets/ImagesServices";
 import Image from "next/image";
 import { SearchPropertyBanner } from "@/components/Commons";
+import { useFetch } from "./hooks/useHooks";
 
 export default function Home() {
   const IMAGE_BUY_HOUSE = "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813094/ImagesByZ/Icons/uvokqndyyfmtkjq1vpsh.png";
@@ -17,6 +18,9 @@ export default function Home() {
   const IMAGE_SELL_HOUSE="https://res.cloudinary.com/dabyqnijl/image/upload/v1741813432/ImagesByZ/Icons/iflgzxayqhbspwitkyal.png";
   const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/v1741805665/ImagesByZ/gljjm312uxdaiand8e8h.jpg";
 
+  const URL_GET_PROJECTS_PUBLIC = process.env.NEXT_PUBLIC_GET_PROJECTS;
+  const {data : dataProjects, loading : loadingDataProjects, error : erroDataProjects} = useFetch(URL_GET_PROJECTS_PUBLIC);
+  
   const listService = [
     {title : "Compra",description : "Encuentra los inmuebles más cerca de ti que están en venta", linkName : "/",  image : IMAGE_BUY_HOUSE},
     {title : "Alquiler", description : "Alquila tu próximo inmueble de una forma fácil y segura", linkName : "/",  image : IMAGE_RENT_HOUSE},
@@ -150,7 +154,7 @@ export default function Home() {
         </div>
         <section className="relative flex-1"> 
           <section className="absolute flex-1  h-full ml-8 flex flex-col justify-center ">
-              <div className="flex flex-row">
+              <div className="hidden flex-row">
                 {
                   itemProject?.map(
                     (item, idx)=>
@@ -158,12 +162,15 @@ export default function Home() {
                   )
                 }
               </div>
-              <div className=" flex flex-row items-center mt-4 ">
-                <section className="flex flex-row items-center ">
+              <div className=" flex flex-row justify-center items-center mt-4 ">
                 {
-                  projectData?.filter(item=>item.isSelected)[0].data?.map((item, idx)=><ProjectCard key={idx} data={item} />)
+                  loadingDataProjects? <p>Cargando ....</p> : 
+                  <section className="flex flex-row items-center justify-center h-full ">
+                  {
+                    dataProjects?.projects?.map((item, idx)=><ProjectCard key={idx} {...item} />)
+                  }
+                  </section>
                 }
-                </section>
               </div>
           </section>
         </section>
