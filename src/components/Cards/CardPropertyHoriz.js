@@ -87,7 +87,10 @@ export default function CardPropertyHoriz({
                     <h1>Servicio de agua : </h1>
                 </section>
             </div>
-            <div className='absolute right-0 w-16 h-1w-16 bottom-0 rounded-full'>
+            <div className='absolute right-24 w-16  bottom-0 rounded-full flex flex-row items-center'>
+                <div className='mx-2'>
+                    <h1>{dataResponseUser?.user_name}</h1>
+                </div>
                 {
                     loadingDataUser ?
                     <Skeleton className={"w-20 h-20 rounded-full"}/> :
@@ -96,11 +99,12 @@ export default function CardPropertyHoriz({
                         
                         alt='Foto perfil'
                         className=' inset-0'
-                        width={60}
-                        height={60}
+                        width={50}
+                        height={50}
                         objectFit='cover'
                         />
                 }
+               
             </div>
         </section>
     </div>

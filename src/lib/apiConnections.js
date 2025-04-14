@@ -5,6 +5,7 @@ const URL_UPLOAD_IMAGE = process.env.NEXT_PUBLIC_UPLOAD_IMAGE;
 const URL_CREATE_PROJECT = process.env.NEXT_PUBLIC_CREATE_PROJECT;
 const URL_CREATE_PROPERTY = process.env.NEXT_PUBLIC_CREATE_PROPERTY
 const URL_SAVE_REAL_AGENT = process.env.NEXT_PUBLIC_SAVE_REAL_AGENT_DATA;
+const URL_SAVE_FORM_CLIENT= process.env.NEXT_PUBLIC_SAVE_FORM_CLIENT;
 const URL_UPDATE_PROJECT = process.env.NEXT_PUBLIC_UPDATE_PROJECT_DATA;
 
 export async function UPLOAD_IMAGE(data=null) {
@@ -67,6 +68,16 @@ export async function SAVE_REAL_AGENT_INFORMATION(data=null) {
             'Authorization' : `Bearer ${session?.user?.access_token}`
         },
         mode : 'cors',
+        body : JSON.stringify(data)
+    })
+}
+export async function SAVE_FORM_CLIENT(data) {
+    return await fetch(URL_SAVE_FORM_CLIENT,{
+        method : "POST",
+        headers : {
+            'Content-Type' : 'application/json',
+        },
+        mode : "cors",
         body : JSON.stringify(data)
     })
 }

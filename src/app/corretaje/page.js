@@ -1,10 +1,11 @@
 'use client';
 import React from 'react';
-import { useFetch } from '../hooks/useHooks';
+import { useFetch, useFetchApi } from '../hooks/useHooks';
 import { SearchPropertyBanner } from '@/components/Commons';
 import { CardPropertyHoriz } from '@/components/Cards';
 
 export default function Page() {
+
   const URL_GET_PROPERTIES_DATA = process.env.NEXT_PUBLIC_GET_PROPERTIES;
   const {data : dataProperties, loading : loadingDataProperties} = useFetch(URL_GET_PROPERTIES_DATA);
   
@@ -17,6 +18,9 @@ export default function Page() {
         <h1 className='font-bold text-3xl'>Busca tu próxima propiedad</h1>
         <SearchPropertyBanner/>
       </section>
+      <p className='w-full my-2 px-9 text-2xl font-bold mt-8 text-gray-600'>
+        Resultados más cercanos
+      </p>
       <section className='w-full flex flex-col gap-10 mb-2 p-10'>
         {
           dataProperties?.projects?.map((item, key)=><CardPropertyHoriz  key={key} {...item}/>)

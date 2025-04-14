@@ -12,7 +12,7 @@ const libraries = ['places'];
 
 export default function SearchPropertyBanner() {
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY, // Usa variables de entorno
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY, // Usa variables de entorno
         libraries,
     });
 
@@ -29,7 +29,7 @@ export default function SearchPropertyBanner() {
         console.log(value);
              
         const services = new google.maps.places.AutocompleteService();
-        services.getPlacePredictions((predictions, status)=>{
+        services.getPlacePredictions({ input: value },(predictions, status)=>{
             if (status == google.maps.places.PlacesServiceStatus.OK && predictions) {
                 console.log(predictions);
                 
@@ -58,7 +58,7 @@ export default function SearchPropertyBanner() {
     const handleBuscar =()=>{
         if (selectedPlace) {
             const { lat, lng } = selectedPlace;
-            const url = `/corretaje?lat=${lat}&lng=${lng}`;
+            const url = `/buscar?lat=${lat}&lng=${lng}`;
             window.open(url, '_blank');
         } else {
             alert("Selecciona una ubicación válida.");
@@ -142,18 +142,19 @@ export default function SearchPropertyBanner() {
                 />  
                 
                 <Button 
-                    variant="ghost"
-                    onClick={handleBuscar}
-                    className="bg-naranja border shadow-none text-lg font-bold rounded-xl w-32 h-14 text-white hover:bg-orange-400 hover:text-white  border-none p-5 ml-2">
-                    <h1> Buscar </h1>
-                </Button>
+                        variant="ghost"
+                        onClick={handleBuscar}
+                        className="bg-naranja border shadow-none text-lg font-bold rounded-xl w-32 h-14 text-white hover:bg-orange-400 hover:text-white  border-none p-5 ml-2">
+                        <h1> Buscar </h1>
+                    </Button>
+                
             </div>
         }
         {
             suggestions.length > 0 &&
             (
-                <div className='absolute top-28 max-w-xl rounded-lg w-full bg-white p-2'>
-                    <ul className=' rounded-lg mt-2 max-h-48 flex flex-col overflow-y-auto  shadow-md'>
+                <div className='absolute top-24 max-w-xl rounded-lg w-full z-40 p-2'>
+                    <ul className=' rounded-lg mt-2 max-h-48 flex flex-col bg-white overflow-y-auto  shadow-md'>
                         {suggestions.map((suggestion) => (
                             <li
                             key={suggestion.place_id}

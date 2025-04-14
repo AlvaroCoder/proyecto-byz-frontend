@@ -15,3 +15,4 @@ export {default as CardPropertySimple} from "@/components/Cards/CardPropertySimp
 export {default as CardProjectSimple} from "@/components/Cards/CardProjectSimple";
 export {default as CardUsuario} from "@/components/Cards/CardUsuario";
 export {default as CardPropertyHoriz} from "@/components/Cards/CardPropertyHoriz";
+export {default as CardUserHoriz} from "@/components/Cards/CardUserHoriz";
