@@ -129,10 +129,6 @@ export default function SearchPropertyBanner() {
             !isLoaded ?
             <p>Cargando ...</p>:
             <div className='relative w-full flex flex-row bg-white p-4 rounded-b-lg rounded-r-lg'>
-                <ButtonDropdownProperties
-                    data={stateVariantProperty}
-                    handleChangeStatus={handleChangePropertie}
-                />
                 <input
                     placeholder="Escribe una ciudad, ej: Piura"
                     className="outline-none w-full px-4 py-3 border border-gris rounded-lg text-lg ml-2"

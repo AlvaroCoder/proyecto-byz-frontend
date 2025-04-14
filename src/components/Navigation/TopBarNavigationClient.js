@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
+//  {routeName : "Nosotros", routeLink : "/nosotros", subLinks : [], isSelected : false},
 export default function TopBarNavigationClient() {
     const [isFixed, setIsFixed] = useState(false);
 
@@ -26,12 +27,9 @@ export default function TopBarNavigationClient() {
     const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738689199/myayetxnfikdfmvwhxev.png";
     const routes=[
         {routeName : "Inicio", routeLink : "/", subLinks : [], isSelected  : true},
-        {routeName : "Nosotros", routeLink : "/nosotros", subLinks : [], isSelected : false},
+       
         {routeName : "Servicios", routeLink : "/servicios", subLinks : [], isSelected : false},
-        {routeName : "Proyectos", routeLink : "/proyectos", subLinks : [
-            {subLinkName : "PreVenta", subLinkRoute : "/proyectos"},
-            {subLinkName : "Venta", subLinkRoute : "/proyectos"}
-        ], isSelected : false},
+        {routeName : "Proyectos", routeLink : "/proyectos", subLinks : [], isSelected : false},
         {routeName : "Buscar inmuebles", routeLink : "/corretaje", subLinks : [], isSelected : false},
     ].map(item=>{
         if (item?.routeLink == pathname) {
