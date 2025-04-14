@@ -9,7 +9,15 @@ import PersonIcon from '@mui/icons-material/Person';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import Link from 'next/link';
-
+/**
+ * 
+ *     {
+        routeName : "Servicios",
+        routePath : "/admin/dashboard/services",
+        routeIcon : RoofingIcon,
+        selected : false
+    },
+ */
 export default function SidebarNavigationDashboard() {
   const URL_LOGO_BYZ="https://res.cloudinary.com/dabyqnijl/image/upload/v1738689199/myayetxnfikdfmvwhxev.png";
   const [openSidebar, setOpenSidebar] = useState(true);
@@ -38,12 +46,7 @@ export default function SidebarNavigationDashboard() {
       routeIcon : PersonIcon,
       selected : false
     },
-    {
-        routeName : "Servicios",
-        routePath : "/admin/dashboard/services",
-        routeIcon : RoofingIcon,
-        selected : false
-    },
+
  
 ];  
 
