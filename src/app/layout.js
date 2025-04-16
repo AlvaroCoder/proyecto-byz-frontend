@@ -29,8 +29,8 @@ export default function RootLayout({ children }) {
       >
         <main>
           <TopBarNavigationClient/>
-          {children}
-          <Toaster position="bottom-center"/>
+            {children}
+            <Toaster position="bottom-center"/>
           <Footer/>
         </main>
       </body>

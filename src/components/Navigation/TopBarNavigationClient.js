@@ -5,11 +5,12 @@ import { ButtonDropdownNavigation, ButtonNavigation } from './elements';
 import { usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
 
 //  {routeName : "Nosotros", routeLink : "/nosotros", subLinks : [], isSelected : false},
 export default function TopBarNavigationClient() {
     const [isFixed, setIsFixed] = useState(false);
-
+    const [isOpen, setIsOpen] = useState(false);
     useEffect(()=>{
         const handleScroll =()=>{
             if (window.scrollY > 100) {
@@ -52,7 +53,7 @@ export default function TopBarNavigationClient() {
             ${isFixed ? 
                 'fixed top-0 left-0 w-full shadow-md z-50 ': 'relative'
             }bg-white w-full h-20  px-4 flex flex-row items-center justify-between ${encuentraPaginaAdmin ? 'hidden' : 'block'}`}>
-            <section>
+            <section className='hidden md:block' >
                 <Image
                     src={URL_LOGO_BYZ}
                     alt='Logo de empresa ByZ'
@@ -60,7 +61,13 @@ export default function TopBarNavigationClient() {
                     height={80}
                 />
             </section>
-            <ul className='flex flex-row items-center'>
+            <button
+                className="md:hidden text-gray-800"
+                onClick={() => setIsOpen(!isOpen)}
+                >
+                {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+            <ul className='hidden md:flex flex-row items-center'>
                 {
                     routes.map((item,key)=>{
                         if (item?.subLinks.length > 0) {
@@ -70,6 +77,7 @@ export default function TopBarNavigationClient() {
                     })
                 }
             </ul>
+
             <section>
                 <Button
                     variant="ghost"
@@ -80,7 +88,17 @@ export default function TopBarNavigationClient() {
                     </Link>
                 </Button>
             </section>
+
         </nav>
+        {isOpen && (
+            <div className="md:hidden bg-white shadow-lg z-50 border-t border-gray-200  pb-4  space-y-2 animate-slide-down">
+                {
+                    routes?.map((item, idx)=>{
+                        return <Link href={item?.routeLink} key={idx} onClick={()=>isOpen(!isOpen)}><p className='block hover:bg-naranja px-4 py-2 hover:text-white cursor-pointer w-full'>{item?.routeName}</p></Link>
+                    })
+                }
+            </div>
+        )}
     </div>
   )
 }

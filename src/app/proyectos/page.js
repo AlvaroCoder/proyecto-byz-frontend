@@ -21,9 +21,9 @@ export default function Page() {
             objectFit='cover'
           />
         </div>  
-        <div className='absolute bottom-10 right-1/2 bg-white p-4 rounded-lg z-10 w-96 shadow-md'>
+        <div className='absolute bottom-10 md:right-1/2 bg-white p-4 rounded-lg z-10 w-96 shadow-md'>
           <h1 className='font-bold text-gris text-3xl '>Nuestros Proyectos</h1>
-          <p className='mt-4 text-gris'>Descubre el espacio; para tu futuro. Encuentra el mejor y más cercano para ti.</p>
+          <p className='mt-4 text-gris'>Descubre los espacios que tenemos disponibles para ti.</p>
         </div>
       </section>
       <section className='w-full flex justify-center items-center my-8'>

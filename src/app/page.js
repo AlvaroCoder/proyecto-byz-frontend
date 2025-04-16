@@ -11,13 +11,14 @@ import { IMAGES_MAIN_SERVICES } from "@/assets/ImagesServices";
 import Image from "next/image";
 import { SearchPropertyBanner } from "@/components/Commons";
 import { useFetch } from "./hooks/useHooks";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const IMAGE_BUY_HOUSE = "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813094/ImagesByZ/Icons/uvokqndyyfmtkjq1vpsh.png";
   const IMAGE_RENT_HOUSE= "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813093/ImagesByZ/Icons/ljnnuoym8j8ij0dimgbt.png";
   const IMAGE_SELL_HOUSE="https://res.cloudinary.com/dabyqnijl/image/upload/v1741813432/ImagesByZ/Icons/iflgzxayqhbspwitkyal.png";
   const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/v1741805665/ImagesByZ/gljjm312uxdaiand8e8h.jpg";
-
+  const router = useRouter();
   const URL_GET_PROJECTS_PUBLIC = process.env.NEXT_PUBLIC_GET_PROJECTS;
   const {data : dataProjects, loading : loadingDataProjects, error : erroDataProjects} = useFetch(URL_GET_PROJECTS_PUBLIC);
   
@@ -49,7 +50,7 @@ export default function Home() {
     {id : 1,nameItem : "En venta", isSelected : true},
     {id : 2,nameItem : "En alquiler", isSelected : false},
     {id : 3,nameItem : "En preventa", isSelected : false}
-  ]
+  ];
   const [itemProject, setItemProject] = useState(itemsProject);
   const [projectData, setProjectData] = useState(
     [{idProject : 1, data : projectSale, isSelected : true},
@@ -97,7 +98,7 @@ export default function Home() {
           />
         </div>
         <div className="w-full flex flex-col items-center justify-center z-10">
-          <h1 className="font-bold text-4xl">Tu espacio, tu historia, nuestra especialidad</h1>
+          <h1 className="font-bold text-2xl md:text-4xl">Tu espacio, tu historia, nuestra especialidad</h1>
           <div className="max-w-4xl w-full">
             <SearchPropertyBanner/>
           </div>
@@ -105,14 +106,14 @@ export default function Home() {
       </section>
       <section className="">
         <section className="flex justify-center items-center py-10 ">
-          <section className="w-full xl:w-3/4 flex flex-row items-center justify-center  border-gris border-[1px] p-10 rounded-lg">
-            <h1 className="font-bold text-4xl mx-4 w-64">Estas vendiendo ?</h1>
-            <p className="text-gris mx-4 text-xl w-80">Encuentra la mejor propuesta para la venta de tu propiedad</p>
+          <section className="w-full xl:w-3/4 flex flex-col gap-4 md:flex-row items-center justify-center  border-gris border-[1px] p-10 rounded-lg">
+            <h1 className="font-bold text-2xl md:text-4xl mx-4 w-64">Estas vendiendo ?</h1>
+            <p className="text-gris mx-4 md:text-xl w-80">Encuentra la mejor propuesta para la venta de tu propiedad</p>
             <div className="w-60 flex  flex-col items-center justify-center">
-              <h1 className="text-xl">Grupo ByZ</h1>
+              <h1 className=" hidden md:block text-xl">Grupo ByZ</h1>
               
               <ButtonNaranja
-                className={"text-lg rounded-3xl"}
+                className={"text-lg rounded-3xl "}
                 text={"Empezar ahora"}
               />
             </div>
@@ -122,9 +123,9 @@ export default function Home() {
           className=" my-8 w-full flex items-center justify-center  py-12 bg-gray-50"
         >
           <section className="w-full xl:w-3/4">
-            <h1 className="font-bold text-3xl">Estas listo para tu nuevo inmueble ?</h1>
+            <h1 className="font-bold text-xl md:text-3xl">Estas listo para tu nuevo inmueble ?</h1>
             <p className="text-lg ">Encuentra tu mejor opción dentro de nuestro catálogo</p>
-            <section className="w-full mt-4 flex flex-row items-center justify-between">
+            <section className="w-full mt-4 flex flex-col gap-2  lg:flex-row items-center justify-between">
               {
                 listService?.map((item, idx)=><ServiceSliderResume key={idx} data={item} />)
               }
@@ -150,6 +151,7 @@ export default function Home() {
           <ButtonNaranja
             className={"mt-4"}
             text={"Conoce nuestros proyectos"}
+            onClick={()=>{router.push("/proyectos")}}
           />
         </div>
         <section className="relative flex-1"> 
