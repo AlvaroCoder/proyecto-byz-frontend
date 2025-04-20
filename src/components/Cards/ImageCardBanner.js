@@ -13,7 +13,7 @@ export default function ImageCardBanner({src, alt="Imagen de Fondo", title="Serv
                 height={100}
             />
             <div className='absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50'>
-                <h1 className='font-bold text-6xl text-white'>{title}</h1>
+                <h1 className='font-bold text-4xl md:text-6xl text-white '>{title}</h1>
             </div>
         </div>
        

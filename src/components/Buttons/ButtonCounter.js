@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
+// Aumentar o disminuir el numero de los elementos en un JSON
 export default function ButtonCounter({
   handleChangeIncreaseElement,
   handleChangeDecreaseElement

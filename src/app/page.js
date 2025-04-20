@@ -17,7 +17,7 @@ export default function Home() {
   const IMAGE_BUY_HOUSE = "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813094/ImagesByZ/Icons/uvokqndyyfmtkjq1vpsh.png";
   const IMAGE_RENT_HOUSE= "https://res.cloudinary.com/dabyqnijl/image/upload/v1741813093/ImagesByZ/Icons/ljnnuoym8j8ij0dimgbt.png";
   const IMAGE_SELL_HOUSE="https://res.cloudinary.com/dabyqnijl/image/upload/v1741813432/ImagesByZ/Icons/iflgzxayqhbspwitkyal.png";
-  const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/v1741805665/ImagesByZ/gljjm312uxdaiand8e8h.jpg";
+  const IMAGE_BANNER="https://res.cloudinary.com/dabyqnijl/image/upload/v1744814294/ImagesByZ/wgf6o6uc5lyzqaze3jvl.png";
   const router = useRouter();
   const URL_GET_PROJECTS_PUBLIC = process.env.NEXT_PUBLIC_GET_PROJECTS;
   const {data : dataProjects, loading : loadingDataProjects, error : erroDataProjects} = useFetch(URL_GET_PROJECTS_PUBLIC);
