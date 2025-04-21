@@ -11,7 +11,6 @@ export default function Page() {
   const URL_GET_SERVICES = process.env.NEXT_PUBLIC_GET_SERVICES;
   const {data : dataServices, loading : loadingDataServices, error : errorDataServices} = useFetch(URL_GET_SERVICES);
   const URL_IMAGEN = "https://res.cloudinary.com/dabyqnijl/image/upload/v1744654339/ImagesByZ/eoaosaiyrcguy0fjsign.jpg"
-  console.log(dataServices);
   
   const [dataCurrentService, setDataCurrentService] = useState(null);
   
