@@ -111,10 +111,10 @@ export default function Home() {
             <p className="text-gris mx-4 md:text-xl w-80">Encuentra la mejor propuesta para la venta de tu propiedad</p>
             <div className="w-60 flex  flex-col items-center justify-center">
               <h1 className=" hidden md:block text-xl">Grupo ByZ</h1>
-              <ButtonNaranja
-                className={"text-lg rounded-3xl "}
-                text={"Empezar ahora"}
-              />
+             
+              <a className="bg-naranja text-white hover:bg-orange-300 hover:text-white p-4 rounded-3xl mt-2" href="#form-contact">
+                Empezar ahora
+              </a>
             </div>
           </section>
         </section>
@@ -209,7 +209,7 @@ export default function Home() {
                 </p>
             </div>
         </section>
-        <section className="border-t-[1px] border-t-gris w-full min-h-screen flex flex-col justify-center items-center" >
+        <section className="border-t-[1px] border-t-gris w-full min-h-screen flex flex-col justify-center items-center" id="form-contact" >
             <div className="w-full h-40 flex flex-col justify-center items-center">
               <h1 className="font-bold text-3xl">Contactanos</h1>
               <h2>Empecemos tu diseño juntos, contactanos para poder ponernos en contacto contigo</h2>
