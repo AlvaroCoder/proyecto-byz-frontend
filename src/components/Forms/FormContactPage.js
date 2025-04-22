@@ -18,7 +18,7 @@ export default function FormContactPage() {
         {value : "Comprar", id : 1},
         {value : "Vender", id : 2}
     ]
-    const [currentOperation, setCurrentOperation] = useState("Comprar")
+    const [currentOperation, setCurrentOperation] = useState("Comprar");
     const [error, setError] = useState({
         value : null,
         type : null 
@@ -27,7 +27,6 @@ export default function FormContactPage() {
         if (error?.value) {
             const timerError = setTimeout(()=>setError({value : null, type : null}), 4000)
             return ()=>clearTimeout(timerError);
-
         }        
     },[error])
     const [loadingSaveFormClient, setLoadingSaveFormClient] = useState(false);

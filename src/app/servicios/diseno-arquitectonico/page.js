@@ -13,6 +13,7 @@ export default function Page() {
   const [dataCurrentService, setDataCurrentService] = useState(null);
   const URL_IMAGEN = "https://res.cloudinary.com/dabyqnijl/image/upload/v1744654339/ImagesByZ/eoaosaiyrcguy0fjsign.jpg"
   
+  
   useEffect(()=>{
     if (!loadingDataServices) {
       const currentService = dataServices?.projects?.filter((item)=>item?.title?.toUpperCase() === "Diseño Arquitectónico modificado".toUpperCase())[0];      
