@@ -14,7 +14,11 @@ export default function FormContactPage() {
         {value : "De 3 meses a mas", id : 3}
     ]
 
-
+    const typeOperation = [
+        {value : "Comprar", id : 1},
+        {value : "Vender", id : 2}
+    ]
+    const [currentOperation, setCurrentOperation] = useState("Comprar")
     const [error, setError] = useState({
         value : null,
         type : null 
@@ -77,18 +81,31 @@ export default function FormContactPage() {
     <div className="bg-gris rounded-none xl:rounded-lg p-8 w-full xl:w-3/4 min-h-96">
         
         <div className='w-full text-white'>
-            <div>
-                <h1 >Nombre <span className='text-red-500'>*</span></h1>
-                <Input 
-                    name="first_name"
-                    value={dataFormClient?.first_name}
-                    onChange={handleChangeInput}
-                    placeholder="Ingresa tu nombre"
-                    className={`w-full bg-white text-gris p-4 ${error?.type && error?.type ==="Nombres" && "border-red-400 bg-red-100"}`}
+            <section className='flex flex-row gap-4'>
+                <div className='flex-1'>
+                    <h1 >Nombre <span className='text-red-500'>*</span></h1>
+                    <Input 
+                        name="first_name"
+                        value={dataFormClient?.first_name}
+                        onChange={handleChangeInput}
+                        placeholder="Ingresa tu nombre"
+                        className={`w-full bg-white text-gris p-4 ${error?.type && error?.type ==="Nombres" && "border-red-400 bg-red-100"}`}
 
-                />
-                {error?.value && error?.type ==="Nombres" && <p className='text-red-500'>{error?.value}</p>}
-            </div>
+                    />
+                    {error?.value && error?.type ==="Nombres" && <p className='text-red-500'>{error?.value}</p>}
+                </div>
+                <div className=' w-[200px]'>
+                    <h1>Operacion</h1>
+                    <ButtonDropdownStatus
+                        className='bg-white text-black'
+                        data={typeOperation}
+                        initialData={currentOperation}
+                        handleChangeStatus={(value, _)=>{
+                            setCurrentOperation(value)
+                        }}
+                    />
+                </div>
+            </section>
             <div className='mt-4'>
                 <h1 className=''>Apellido <span className='text-red-500'>*</span></h1>
                 <Input
@@ -127,19 +144,22 @@ export default function FormContactPage() {
                 />
             </div>
         </div>
-        <div>
-            <h1 className='text-white mt-4'>Tiempo esperado de compra <span className='text-red-500'>*</span></h1>
-            <ButtonDropdownStatus
-            className='bg-white'
-            data={expectedTimeList}
-            initialData={dataFormClient.expectedTimeToBuy}
-            limitContent={3}
-            handleChangeStatus={(value, _)=>setDataFormClient({
-                ...dataFormClient,
-                expectedTimeToBuy : value
-              })}
-            />  
-        </div>
+        {
+            currentOperation === "Comprar" &&
+            <div>
+                <h1 className='text-white mt-4'>Tiempo esperado de compra <span className='text-red-500'>*</span></h1>
+                <ButtonDropdownStatus
+                className='bg-white'
+                data={expectedTimeList}
+                initialData={dataFormClient.expectedTimeToBuy}
+                limitContent={3}
+                handleChangeStatus={(value, _)=>setDataFormClient({
+                    ...dataFormClient,
+                    expectedTimeToBuy : value
+                })}
+                />  
+            </div>
+        }
         <div className='mt-4'>
             <h1 className='text-white'>Escribe tu petición para poder contactarnos</h1>
             <Textarea
