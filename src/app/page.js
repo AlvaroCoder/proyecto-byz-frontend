@@ -186,8 +186,8 @@ export default function Home() {
               </iframe>
             </div>
         </div>
-        <section className="flex flex-row justify-evenly w-full  py-14 mt-10">
-            <div className="text-gris">
+        <section className="flex flex-col md:flex-row gap-4 items-center md:justify-evenly w-full  py-14 mt-10">
+            <div className="text-gris  ">
                 <div className="flex flex-row items-center  text-2xl">
                   <MapIcon/>
                   <h1 className="font-bold ">Atención en Oficina</h1>
@@ -196,15 +196,15 @@ export default function Home() {
                 <p>Horario de atención : 9:00am - 6:00pm</p>
                 <p>Email : <span> <a href="mailto:contactenos@grupobyz.com">contactenos@grupobyz.com</a></span></p>
             </div>
-            <div className="text-gris">
+            <div className="text-gris ">
                 <div className="flex flex-row items-center  text-2xl">
                   <LocationOnIcon/>
                   <h1 className="font-bold ">Visitanos</h1>
                 </div>
-                <p className="w-80">
+                <p className="w-fit md:w-80">
                 Urb. Santa María del Pinar  
                 </p>
-                <p className="w-80">
+                <p className=" w-fit md:w-80">
                 Av. Casuarinas Mz. B Lt. 54
                 </p>
             </div>

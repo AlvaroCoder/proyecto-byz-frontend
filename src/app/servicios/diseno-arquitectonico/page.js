@@ -2,6 +2,7 @@
 import { useFetch } from '@/app/hooks/useHooks';
 import { IMAGE_DISEÑO } from '@/assets/ImagesServices'
 import { ImageCardBanner } from '@/components/Cards'
+import { LoadingWindowProject } from '@/components/Loading';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
@@ -24,6 +25,9 @@ export default function Page() {
   if (loadingDataServices) {
     return(
       <section className='py-4'>
+        <LoadingWindowProject
+          loading={loadingDataServices}
+        />
         <Skeleton
         className={"w-full min-h-screen"}
       />

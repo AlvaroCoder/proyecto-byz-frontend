@@ -4,6 +4,7 @@ import { IMAGE_INGENIERIA } from '@/assets/ImagesServices'
 import { ButtonNaranja } from '@/components/Buttons';
 import { ImageCardBanner } from '@/components/Cards'
 import { FormContactPage } from '@/components/Forms';
+import { LoadingWindowProject } from '@/components/Loading';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
@@ -23,6 +24,9 @@ export default function Page() {
   if (loadingDataServices) {
     return(
       <section className='py-4'>
+                <LoadingWindowProject
+                  loading={loadingDataServices}
+                />
         <Skeleton
           className={"w-full min-h-screen"}
         />

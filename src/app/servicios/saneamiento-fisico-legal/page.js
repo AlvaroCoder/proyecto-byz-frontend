@@ -60,7 +60,7 @@ export default function Page() {
           }
         </div>
       </section>
-      <section className='w-full min-h-screen flex flex-col justify-center items-center bg-gris'>
+      <section className='w-full min-h-[500px] flex flex-col justify-center items-center bg-gris'>
           <h1 className='font-bold text-4xl text-center text-white border-b-2 border-b-naranja'>Servicios</h1>
           <div className='max-w-4xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4'>
             {

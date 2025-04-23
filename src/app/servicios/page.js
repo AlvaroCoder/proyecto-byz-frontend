@@ -14,10 +14,6 @@ export default function Page() {
           IMAGES_MAIN_SERVICES?.map((item,idx)=><ServicesCardDesplegable key={idx} data={item} />)
         }
       </section>
-      <section className='w-full min-h-screen'>
-
-        
-      </section>
     </section>
   )
 }
