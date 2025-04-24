@@ -7,6 +7,7 @@ const URL_CREATE_PROPERTY = process.env.NEXT_PUBLIC_CREATE_PROPERTY
 const URL_SAVE_REAL_AGENT = process.env.NEXT_PUBLIC_SAVE_REAL_AGENT_DATA;
 const URL_SAVE_FORM_CLIENT= process.env.NEXT_PUBLIC_SAVE_FORM_CLIENT;
 const URL_UPDATE_PROJECT = process.env.NEXT_PUBLIC_UPDATE_PROJECT_DATA;
+const URL_SAVE_COMPLAINENT_BOOK = process.env.NEXT_PUBLIC_SAVE_COMPLAINENT_BOOK;
 
 export async function UPLOAD_IMAGE(data=null) {
     const session = await getSession();
@@ -80,4 +81,15 @@ export async function SAVE_FORM_CLIENT(data) {
         mode : "cors",
         body : JSON.stringify(data)
     })
+}
+
+export async function SAVE_COMPLAINENT_BOOK(data) {
+    return await fetch(URL_SAVE_COMPLAINENT_BOOK,{
+        method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        mode : 'cors',
+        body : JSON.stringify(data)
+    });
 }

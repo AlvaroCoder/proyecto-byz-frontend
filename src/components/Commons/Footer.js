@@ -1,12 +1,12 @@
 'use client'
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
 
 export default function Footer() {
   const pathname = usePathname();
   const existeRutaAdmin = pathname.split("/").includes("admin");
-
+  const router = useRouter();
   const IMAGEN_LOGO="https://res.cloudinary.com/dabyqnijl/image/upload/v1738629648/p13jmnqe8xytp8fggkxa.png";
   const IMAGEN_LIBRO_RECLAMACIONES="https://res.cloudinary.com/dabyqnijl/image/upload/v1738690309/pumozpk2jg2btsg3unr3.png";
   return (
@@ -28,7 +28,9 @@ export default function Footer() {
         </div>
 
         {/* Libro de Reclamaciones */}
-        <div className="border border-gray-300 p-6 rounded-lg flex flex-col items-center">
+        <div 
+        onClick={()=>router.push("/libro-reclamaciones")}
+        className="border border-gray-300 p-6 rounded-lg flex flex-col items-center">
           <Image
             src={IMAGEN_LIBRO_RECLAMACIONES}
             width={200}
