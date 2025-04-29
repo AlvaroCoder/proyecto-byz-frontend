@@ -62,9 +62,9 @@ export default function Page() {
           }
         </div>
       </section>
-      <section className='bg-gris w-full min-h-[400px] flex flex-row gap-8 justify-center items-center'>
-        <Tittle className="text-white border-b-2 border-b-naranja">Mision y Vision</Tittle>
-        <ul className='max-w-2xl w-full'>
+      <section className='bg-gris w-full min-h-[400px] flex flex-col md:flex-row gap-8 justify-center items-center'>
+        <Tittle className="text-white border-b-2 border-b-naranja">Misión y Visión</Tittle>
+        <ul className='max-w-2xl w-full p-4 md:p-0'>
           {
             dataCurrentService?.misionVision?.description?.map((item, idx)=>
             <li key={idx} className='mt-4 text-white' >{item}</li>
@@ -78,7 +78,7 @@ export default function Page() {
           <div>
             {
               dataCurrentService?.quality?.content?.map((item, idx)=>
-              <p key={idx} className='max-w-80 text-justify'>{item}</p>
+              <p key={idx} className='max-w-2xl w-full md:max-w-80 text-justify'>{item}</p>
               )
             }
           </div>
@@ -94,7 +94,7 @@ export default function Page() {
         </div>
 
       </section>
-      <section className='w-full min-h-[400px] bg-gris flex flex-col justify-center items-center'>
+      <section className='w-full min-h-[600px] md:min-h-[400px] bg-gris flex flex-col justify-center items-center'>
         <Tittle className="text-white border-b-2 border-b-naranja">Servicios</Tittle>
         <div>
           <ul className='max-w-4xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4'>
@@ -108,17 +108,17 @@ export default function Page() {
           </ul>
         </div>
       </section>
-      <section className='w-full min-h-[500px] flex gap-10 flex-row justify-center items-center'>
+      <section className='w-full min-h-screen md:min-h-[500px] flex gap-10 flex-col md:flex-row justify-center items-center'>
         <section>
           <Tittle>{dataCurrentService?.quality?.title}</Tittle>
-          <div>
+          <div >
             {
               dataCurrentService?.quality?.content?.map((item, idx)=>
               <p key={idx}>{item}</p>)
             }
           </div>
         </section>
-        <section className='max-w-fit w-full  grid grid-cols-2 gap-1 text-gris text-xl'>
+        <section className='max-w-lg md:max-w-fit w-full  grid grid-cols-1 md:grid-cols-2 gap-1 text-gris text-xl'>
             <article className='border border-naranja hover:border-orange-300 transition-colors duration-300 hover:bg-orange-300 p-4 '>
               <RecordVoiceOverIcon className=''/>
               <p className=''>{dataCurrentService?.quality?.testimonials}</p>
