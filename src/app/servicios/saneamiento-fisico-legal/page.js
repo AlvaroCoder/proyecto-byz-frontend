@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
+import { Tittle } from '@/components/Commons';
 
 export default function Page() {
   const URL_GET_SERVICES = process.env.NEXT_PUBLIC_GET_SERVICES;
@@ -54,7 +55,7 @@ export default function Page() {
           />
         </div>
         <div className='order-1 md:order-2 p-4 flex flex-col gap-3 justify-center items-center '>
-          <h1 className='font-bold text-lg'>Descripción</h1>
+          <Tittle>Descripción</Tittle>
           {
             dataCurrentService?.description?.map((item, idx)=><p key={idx} className='max-w-80 text-justify' >{item}</p>)
           }
