@@ -107,7 +107,7 @@ export default function Home() {
       <section className="">
         <section className="flex justify-center items-center py-10 md:px-8">
           <section className="w-full  xl:w-3/4 flex flex-col gap-4 md:flex-row items-center justify-center  border-gris border-[1px] p-10 rounded-lg">
-            <h1 className="font-bold text-2xl md:text-4xl mx-4 w-64">Estas vendiendo ?</h1>
+            <h1 className="font-bold text-2xl md:text-4xl  mx-4 w-64">Estas vendiendo ?</h1>
             <p className="text-gris mx-4 md:text-xl w-80">Encuentra la mejor propuesta para la venta de tu propiedad</p>
             <div className="w-60 flex  flex-col items-center justify-center">
               <h1 className=" hidden md:block text-xl">Grupo ByZ</h1>
@@ -121,8 +121,8 @@ export default function Home() {
         <section 
           className=" my-8 w-full flex items-center justify-center  py-12 bg-gray-50"
         >
-          <section className="w-full xl:w-3/4">
-            <h1 className="font-bold text-xl md:text-3xl">Estas listo para tu nuevo inmueble ?</h1>
+          <section className="w-full xl:w-3/4 md:px-4 p-0">
+            <h1 className="font-bold text-xl md:text-3xl ">Estas listo para tu nuevo inmueble ?</h1>
             <p className="text-lg ">Encuentra tu mejor opción dentro de nuestro catálogo</p>
             <section className="w-full mt-4 flex flex-col gap-2  md:p-4 lg:flex-row items-center justify-between">
               {

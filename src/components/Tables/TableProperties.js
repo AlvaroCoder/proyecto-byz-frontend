@@ -7,7 +7,6 @@ export default function TableProperties({
     dataProperties=[],
     dataStatus=[]
 }) {
-    console.log(dataProperties);
     const typeProperties = [{id : 0, value : "Todos"},...dataStatus]?.map((item, idx)=>{
         if (idx === 0) {
             return {
@@ -23,12 +22,13 @@ export default function TableProperties({
     const [loadingDataUpdate, setLoadingDataUpdate] = useState(false);
     const [dataTypeProperties, setDataTypeProperties] = useState(typeProperties);
     const [dataPropertiesState, setDataPropertiesState] = useState(dataProperties);
+    
     const filterDataStatus = useMemo(()=>{
         if (dataTypeProperties?.filter(i=>i.isSelected)[0]?.value.toUpperCase() === "TODOS") {
             return dataProperties
         };
         return dataPropertiesState.filter(item=>dataTypeProperties?.filter(i=>i.isSelected)[0]?.value.toUpperCase().trim() === item?.status.toUpperCase().trim())
-    },[]);
+    },[dataPropertiesState, dataTypeProperties]);
 
     // Cambio de estado del proyecto
     const handleChangeTypeProperties=(titlePropertie="")=>{
@@ -85,7 +85,9 @@ export default function TableProperties({
                 handleChangeLoading={handleChangeLoading}
                 handleUpdateChange={handleUpdateChange}
             /> : 
-            <BoardEmptyProjects/>
+            <BoardEmptyProjects
+                texto='Aun no existe propiedad'
+            />
         }
     </section>
   )

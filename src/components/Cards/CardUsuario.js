@@ -2,6 +2,14 @@
 import React from 'react'
 import { TableCell, TableRow } from '../ui/table';
 import Image from 'next/image';
+import { Button } from '../ui/button';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Dialog } from '../ui/dialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { cn } from '@/lib/utils';
+
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function CardUsuario({
     dataUsuario=null
@@ -40,16 +48,31 @@ export default function CardUsuario({
             <p className='bg-naranja p-1 text-sm text-white rounded-lg w-fit'>{role?.value}</p>
         </TableCell>
         <TableCell>
-            {user_name}
-        </TableCell>
-        <TableCell>
             {phone}
         </TableCell>
         <TableCell>
-            {personal_email}
-        </TableCell>
-        <TableCell>
-            {company_email}
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button
+                        variant="ghost"
+                    >
+                        <MoreVertIcon/>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                    className={cn(
+                        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+                        "flex flex-col"
+                    )}
+                >
+                    <Button variant="ghost" >
+                        <p className='flex flex-row justify-center items-center'> <EditIcon/> <span>Editar</span></p>
+                    </Button>
+                    <Button variant="ghost">
+                        <p className='flex flex-row justify-center items-center'> <DeleteIcon/> <span>Eliminar</span></p>
+                    </Button>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </TableCell>
     </TableRow>
   )

@@ -7,6 +7,7 @@ const URL_CREATE_PROPERTY = process.env.NEXT_PUBLIC_CREATE_PROPERTY
 const URL_SAVE_REAL_AGENT = process.env.NEXT_PUBLIC_SAVE_REAL_AGENT_DATA;
 const URL_SAVE_FORM_CLIENT= process.env.NEXT_PUBLIC_SAVE_FORM_CLIENT;
 const URL_UPDATE_PROJECT = process.env.NEXT_PUBLIC_UPDATE_PROJECT_DATA;
+const URL_UPDATE_PROPERTY = process.env.NEXT_PUBLIC_UPDATE_PROPERTY_DATA;
 const URL_SAVE_COMPLAINENT_BOOK = process.env.NEXT_PUBLIC_SAVE_COMPLAINENT_BOOK;
 
 export async function UPLOAD_IMAGE(data=null) {
@@ -25,6 +26,19 @@ export async function UPDATE_DATA_PROJECT(data=null) {
     const session = await getSession();
     return await fetch(URL_UPDATE_PROJECT, {
         method : "PUT",
+        headers : {
+            'Content-type' : 'application/json',
+            'Authorization' : `Bearer ${session?.user?.access_token}`
+        },
+        mode : 'cors',
+        body : JSON.stringify(data)
+    })
+}
+
+export async function UPDATE_DATA_PROPERTY(data=null) {
+    const session = await getSession();
+    return await fetch(URL_UPDATE_PROPERTY,{
+        method : 'PUT',
         headers : {
             'Content-type' : 'application/json',
             'Authorization' : `Bearer ${session?.user?.access_token}`

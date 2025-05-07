@@ -27,7 +27,8 @@ export default function Page() {
     dataProjects?.projects?.filter(item=>item?.status?.toUpperCase() === "PREVENTA DISPONIBLE")?.length,
     dataProjects?.projects?.filter(item=>item?.status?.toUpperCase() === "VENTA DISPONIBLE")?.length,
     dataProjects?.projects?.filter(item=>item?.status?.toUpperCase() === "VENDIDO")?.length
-  ]
+  ];
+  
   const agentesInmobiliarios = dataUsers?.filter((item)=>item?.role?.id === 5);
   if (loadingDataUsers || loadingDataProjects || loadingDataProperties || loadingDataClientes) {
     return (<p>Cargando ...</p>)

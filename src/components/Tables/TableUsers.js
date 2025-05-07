@@ -4,7 +4,8 @@ import { Input } from '../ui/input'
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { Button } from '../ui/button'
 import { FormAddUser } from '../Forms'
-import { CardUsuario } from '../Cards'
+import { CardUsuario } from '../Cards';
+import EditIcon from '@mui/icons-material/Edit';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '../ui/table'
 import { SAVE_REAL_AGENT_INFORMATION, UPLOAD_IMAGE } from '@/lib/apiConnections'
 
@@ -83,26 +84,25 @@ export default function TableUsers({
                 </DialogContent>
             </Dialog>
         </section>
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableHead>Perfil</TableHead>
-                    <TableHead>Nombre</TableHead>
-                    <TableHead>Apellido</TableHead>
-                    <TableHead>Rol</TableHead>
-                    <TableHead>Nombre de usuario</TableHead>
-                    <TableHead>Telefono</TableHead>
-                    <TableHead>Email Personal</TableHead>
-                    <TableHead>Email Profesional</TableHead>
-
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {
-                    filterData?.map((item)=><CardUsuario key={item?.id} dataUsuario={item} />)
-                }
-            </TableBody>
-        </Table>
+        <section className='p-4 rounded-lg bg-white shadow-sm'>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Perfil</TableHead>
+                        <TableHead>Nombre</TableHead>
+                        <TableHead>Apellido</TableHead>
+                        <TableHead>Rol</TableHead>
+                        <TableHead>Telefono</TableHead>
+                        <TableHead className="text-center"><EditIcon/></TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {
+                        filterData?.map((item)=><CardUsuario key={item?.id} dataUsuario={item} />)
+                    }
+                </TableBody>
+            </Table>
+        </section>
     </div>
   )
 }
