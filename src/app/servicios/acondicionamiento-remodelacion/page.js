@@ -42,11 +42,11 @@ export default function Page() {
         </h1>
       </div>
 
-      <div className="w-full max-w-5xl grid gap-8">
+      <div className="w-full  max-w-5xl grid gap-8 px-4">
         {listImages?.map((img, idx) => (
           <section
             key={idx}
-            className="grid grid-cols-2 md:grid-cols-3 gap-4"
+            className="grid grid-cols-2 md:grid-cols-3 gap-4 "
           >
             {/* Imagen principal más grande */}
             <div
@@ -87,8 +87,22 @@ export default function Page() {
           </section>
         ))}
       </div>
+      
+      <div className='mt-4 max-w-5xl w-full h-52 shadow rounded-sm flex flex-row items-center justify-center gap-40 bg-slate-100'>
+        <div>
+          <h1 className='font-bold text-xl'>Puedes ver nuestro Brochure</h1>
+          <p>Revisalo para mas información</p>
+        </div>
+        <div>
+          <a 
+            className='bg-orange-400 rounded-sm text-white p-6 '
+            target='_blank'
+            href='https://www.canva.com/design/DAGfYvx8Bss/FdMYhMHMC5C2kyN3-zprhQ/view?utm_content=DAGfYvx8Bss&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd941598f98'
+          >Brochure Aquí</a>
+        </div>
+      </div>
     </section>
-    
+      
     </div>
   )
 }
