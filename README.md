@@ -24,4 +24,4 @@ Para el desarrollo del proyecto se emplearon las siguientes tecnologías:
 ---
 
 ## MockUp de la página web
-
+![urlMockup](https://raw.githubusercontent.com/AlvaroCoder/proyecto-byz-frontend/refs/heads/main/MockupGrupoByZ.png?token=GHSAT0AAAAAAC7LTW6ETC74EYWFXJ6PQ2622GRTBFA)
