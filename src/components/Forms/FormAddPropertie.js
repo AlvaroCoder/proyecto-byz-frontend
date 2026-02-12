@@ -25,9 +25,10 @@ export default function FormAddPropertie({
 }) {
     const router = useRouter();
     const refInputNearPlaces = useRef(null);
-    const URL_STATUS=process.env.NEXT_PUBLIC_GET_STATUS_PROJECTS;
+    const URL_STATUS=process.env.NEXT_PUBLIC_GET_STATUS_PROPERTIES;
     const {data : dataStatusProject, error, loading : loadingDataStatusProject} = useFetch(URL_STATUS);
-
+    console.log(dataStatusProject);
+    
     const [dataNewProperties, setDataNewProperties] = useState({
         name : "",
         description : "",

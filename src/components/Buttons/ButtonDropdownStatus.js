@@ -7,7 +7,7 @@ export default function ButtonDialogStatus({
     data=[],
     initialData="",
     handleChangeStatus,
-    limitContent=1,
+    limitContent=5,
     className=""
 }) {
    
