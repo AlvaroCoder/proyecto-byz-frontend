@@ -94,8 +94,8 @@ export default function FormAddPropertie({
             ...dataGeographicalDetail,
             [target.name] : Number(target.value)
         });
-        setDataNewProperties((prev)=>({
-            ...dataNewProperties,
+        setDataNewProperties(prev=>({
+            ...prev,
             geographicalDetails:{
                 ...prev.geographicalDetails,
                 totalArea : {
