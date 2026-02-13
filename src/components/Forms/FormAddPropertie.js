@@ -63,8 +63,8 @@ export default function FormAddPropertie({
         images : [],
         status : 'Venta disponible',
         price : {
-          soles : "",
-          dolar : ""
+          soles : 0,
+          dolar : 0
         },
         reservedTime : (new Date()).toISOString(),
         creationTime : (new Date()).toISOString()
@@ -142,7 +142,7 @@ export default function FormAddPropertie({
             ...prev,
             price : {
                 ...prev.price,
-                [target.name] : target.value
+                [target.name] : Number(target.value)
             }
         }))
     }
@@ -230,6 +230,7 @@ export default function FormAddPropertie({
                     coveredArea : dataGeographicalCoveredDetail
                 }
             }
+            console.log(newDataToSave);
             
             const responseCreateProperty = await CREATE_PROPERTY(newDataToSave);
             if (!responseCreateProperty.ok) {
